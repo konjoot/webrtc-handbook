@@ -39,8 +39,9 @@ WebRTC это набор спецификаций, описывающих тра
          |           |                           |           |
          +-----------+                           +-----------+
 
-                      Рис 1: Browser RTC Trapezoid. Источник: [Overview: Real Time Protocols for Browser-based Applications](https://tools.ietf.org/html/draft-ietf-rtcweb-overview)
+                      
 ```
+Рис 1: Browser RTC Trapezoid. Источник: [Overview: Real Time Protocols for Browser-based Applications](https://tools.ietf.org/html/draft-ietf-rtcweb-overview)
 
 На данной схеме изображено взаимодействие двух браузеров, но их можно заменить любым WebRTC-совместимым клиентом.
 
