@@ -32,3 +32,7 @@ WebRTC
 
 The format for media transport is RTP [RFC3550].  Implementation of SRTP [RFC3711] is REQUIRED for all implementations.
 
+* Negotiating Media Multiplexing Using the Session Description Protocol (SDP) - https://tools.ietf.org/html/draft-ietf-mmusic-sdp-bundle-negotiation
+
+* Trickle ICE: Incremental Provisioning of Candidates for the Interactive Connectivity Establishment (ICE) Protocol - https://tools.ietf.org/html/draft-ietf-ice-trickle
+* The Session Description Protocol (SDP) Grouping Framework - https://tools.ietf.org/html/rfc5888
