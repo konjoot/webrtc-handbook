@@ -355,6 +355,31 @@ candidate:1 1 UDP 1694498815 192.0.2.33 10000 typ host
 ```
 IceCandidate также содержит поля указывающие с какой m= строкой он должен быть ассоциирован одним из двух способов: или с помощью индекса m= строки, или с помощью MID. Индекс m= строки - это число от нуля до кол-ва m= строк минус один (N-1). MID использует "media stream identification" аттрибут, как описано в [RFC5888](https://tools.ietf.org/html/rfc5888). Реализации JSEP должны поддерживать оба этих поля. Реализации, принимающие ICE кандидатов, должны в первую очередь использовать MID, и только при его отсутствии - индекс m= строки.
 
+### Политики ICE кандидатов.
+
+Обычно, когда собираются ICE кандидаты, браузер собирает все возможные формы из первоначальных кандидатов - хост, возвратный сервер или реле. Однако, в некоторых случаях, приложения могут захотеть больше контроля над процессом сборки, из соображений безопасности и т.д. Например, можно запретить использование хост-кандидатов, чтобы предотвратить раскрытие информации о локальной сети, или пойти еще дальше, разрешив использовать только релейные сервера, чтобы свести к минимуму возможность утечки локальной информации, при этом нужно помнить, что подобные ограничения приводят к повышенной стоимости этих операций. В целом браузер при необходимости должен предоставить приложению возможность явно указать какими кандидатами пользоваться во время сессии. Обратите внимание, что эта фильтрация применяется над всеми ограничениями, использующимися браузером при определении, какие адреса разрешены для приложения, как описано [здесь](https://tools.ietf.org/html/draft-ietf-rtcweb-ip-handling).
+
+Так же могут быть случаи, когда приложение хочет изменить тип кандидатов во время активной сессии. Простой пример, когда звонящий первоначально хотел использовать релейных кандидатов, чтобы предотвратить утечку локальной информации неизвестному звонящему, но потом выбрал использовать всех кандидатов, для ускорения работы, когда был уведомлен, что они нужны, чтобы принять звонок. Для этого сценария браузер должен изменение политики кандидатов при активной сессии.
+
+Чтобы управлять политикой ICE кандидатов, браузер должен определить текущую настройку при старте каждой сборочной фазы. Тогда в течение сборочной фазы, браузер не должен предоставлять кандидатов запрещенных текущей политикой приложения, использовать их как источник для комунникационных проверок, или неявно выдавать их в других полях, таких как raddr\saddr атрибутов для других ICE кандидатов.
+
+### Пул ICE-кандидатов.
+
+JSEP приложения обычно инициируют браузер начать ICE сборку посредством информации отправляемой через `setLocalDescription`, т.к. именно в этот момент приложение определяет количество медиа потоков и тем самым ICE компоненты, для которых собирать кандидатов. Однако, чтобы ускорить случаи, когда приложение знает несколько ICE компонент, еще до того, как они понадобятся, тогда оно может попросить браузер держать пул потенциальных ICE кандидатов, чтобы гарантировать быструю настройку соединения.
+
+Когда `setLocalDescription` вызван, браузер начинает собирать необходимых ICE кандидатов, он должен начать с кандидатов из пула. Если кандидаты есть, они возвращаются приложению немедленно, посредством оповещения об ICE кандидате. Если пул истощается, в результате большего чем ожидалось количества компонент, или по причине того, что пул еще не успел заполнится, так или иначе недостающие кандидаты будут собраны как обычно.
+
+Примером того, где этот концепт применим является приложение, которое ожидает входящий вызов в какой-то конкретный момент времени в будущем, и хочет минимизировать время на установку соединения, чтобы минимизировать потерю первоначального медиа. Посредством собирания ICE кандидатов в пул, можно инициировать настройку соединения на этих кандадатах сразу после получение вызова. Однако, не стоит забывать, что хранение пресобранных кандидатов, которые остаются живыми, пока они нужны приложению, занимает ресурсы на STUN\TURN серверах, которые использует приложение.
+
+## Согласование размеров видео.
+
+Согласование размеров видео - это процесс с помощью которого получатель может использовать `a=imagearrt` SDP атрибут [RFC6236](https://tools.ietf.org/html/rfc6236), чтобы указать какой размер видео фрейма он способен принимать. Принимающая сторона может быть ограничена в пределами видео-декодера, или оно это нужно приложению, например специфичный размер окна, в котором видео будет показано.
+
+### Создание imageattr аттрибута.
+
+Чтобы определить возможное для принимающей стороны разрешение видео, пересекаются лимиты декодера с обязательными ограничениями, которые применяются к MediaStreamTrack объекту. Если лимиты декодаре неизвестны, например когда используется программных декодер, используются только обязательные ограничения. Для ответчика эти обязательные ограничения могут быть применены к удаленному MediaStreamTrack, который получен при вызове setRemoteDescription и повлияют на ответ от подтверждающего createAnswer вызова. Любые ограничение наложенные после использования setLocalDescription для настройки ответа, приведут к новому запрос\ответ обмену. Инициатор, т.к. он не знает о каких удаленных MedisStreamTrack объектах, пока он не получит ответ, может только отразить пределы декодера. Если инициатор желает наложить обязательные ограничения на разрешение видео, он должен сделать это после получения ответа и результатом будет новый запрос\ответ обмен.
+
+Если нет никаких известных ограничений декодера или обязательных ограничений, атрибут imageattr должен быть опущен.
 
 <- RFC
 3.2.  Session Descriptions and State Machine
@@ -367,100 +392,9 @@ IceCandidate также содержит поля указывающие с ка
 3.5.2.  ICE Candidate Trickling
 3.5.2.1.  ICE Candidate Format
 3.5.3.  ICE Candidate Policy
-
-   Typically, when gathering ICE candidates, the browser will gather all
-   possible forms of initial candidates - host, server reflexive, and
-   relay.  However, in certain cases, applications may want to have more
-   specific control over the gathering process, due to privacy or
-   related concerns.  For example, one may want to suppress the use of
-   host candidates, to avoid exposing information about the local
-   network, or go as far as only using relay candidates, to leak as
-   little location information as possible (note that these choices come
-   with corresponding operational costs).  To accomplish this, the
-   browser MUST allow the application to restrict which ICE candidates
-   are used in a session.  Note that this filtering is applied on top of
-   any restrictions the browser chooses to enforce regarding which IP
-   addresses are permitted for the application, as discussed in
-   [I-D.ietf-rtcweb-ip-handling].
-
-   There may also be cases where the application wants to change which
-   types of candidates are used while the session is active.  A prime
-   example is where a callee may initially want to use only relay
-   candidates, to avoid leaking location information to an arbitrary
-   caller, but then change to use all candidates (for lower operational
-   cost) once the user has indicated they want to take the call.  For
-   this scenario, the browser MUST allow the candidate policy to be
-   changed in mid-session, subject to the aforementioned interactions
-   with local policy.
-
-   To administer the ICE candidate policy, the browser will determine
-   the current setting at the start of each gathering phase.  Then,
-   during the gathering phase, the browser MUST NOT expose candidates
-   disallowed by the current policy to the application, use them as the
-   source of connectivity checks, or indirectly expose them via other
-   fields, such as the raddr/rport attributes for other ICE candidates.
-   Later, if a different policy is specified by the application, the
-   application can apply it by kicking off a new gathering phase via an
-   ICE restart.
-
 3.5.4.  ICE Candidate Pool
-
-   JSEP applications typically inform the browser to begin ICE gathering
-   via the information supplied to setLocalDescription, as this is where
-   the app specifies the number of media streams, and thereby ICE
-   components, for which to gather candidates.  However, to accelerate
-   cases where the application knows the number of ICE components to use
-   ahead of time, it may ask the browser to gather a pool of potential
-   ICE candidates to help ensure rapid media setup.
-
-   When setLocalDescription is eventually called, and the browser goes
-   to gather the needed ICE candidates, it SHOULD start by checking if
-   any candidates are available in the pool.  If there are candidates in
-   the pool, they SHOULD be handed to the application immediately via
-   the ICE candidate event.  If the pool becomes depleted, either
-   because a larger-than-expected number of ICE components is used, or
-   because the pool has not had enough time to gather candidates, the
-   remaining candidates are gathered as usual.
-
-   One example of where this concept is useful is an application that
-   expects an incoming call at some point in the future, and wants to
-   minimize the time it takes to establish connectivity, to avoid
-   clipping of initial media.  By pre-gathering candidates into the
-   pool, it can exchange and start sending connectivity checks from
-   these candidates almost immediately upon receipt of a call.  Note
-   though that by holding on to these pre-gathered candidates, which
-   will be kept alive as long as they may be needed, the application
-   will consume resources on the STUN/TURN servers it is using.
-
 3.6.  Video Size Negotiation
-
-   Video size negotiation is the process through which a receiver can
-   use the "a=imageattr" SDP attribute [RFC6236] to indicate what video
-   frame sizes it is capable of receiving.  A receiver may have hard
-   limits on what its video decoder can process, or it may wish to
-   constrain what it receives due to application preferences, e.g. a
-   specific size for the window in which the video will be displayed.
-
 3.6.1.  Creating an imageattr Attribute
-
-   In order to determine the limits on what video resolution a receiver
-   wants to receive, it will intersect its decoder hard limits with any
-   mandatory constraints that have been applied to the associated
-   MediaStreamTrack.  If the decoder limits are unknown, e.g. when using
-   a software decoder, the mandatory constraints are used directly.  For
-   the answerer, these mandatory constraints can be applied to the
-   remote MediaStreamTracks that are created by a setRemoteDescription
-   call, and will affect the output of the ensuing createAnswer call.
-   Any constraints set after setLocalDescription is used to set the
-   answer will result in a new offer-answer exchange.  For the offerer,
-   because it does not know about any remote MediaStreamTracks until it
-   receives the answer, the offer can only reflect decoder hard limits.
-   If the offerer wishes to set mandatory constraints on video
-   resolution, it must do so after receiving the answer, and the result
-   will be a new offer-answer to communicate them.
-
-   If there are no known decoder limits or mandatory constraints, the
-   "a=imageattr" attribute SHOULD be omitted.
 
    Otherwise, an "a=imageattr" attribute is created with "recv"
    direction, and the resulting resolution space formed by intersecting

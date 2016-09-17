@@ -36,3 +36,5 @@ The format for media transport is RTP [RFC3550].  Implementation of SRTP [RFC371
 
 * Trickle ICE: Incremental Provisioning of Candidates for the Interactive Connectivity Establishment (ICE) Protocol - https://tools.ietf.org/html/draft-ietf-ice-trickle
 * The Session Description Protocol (SDP) Grouping Framework - https://tools.ietf.org/html/rfc5888
+* WebRTC IP Address Handling Recommendations - https://tools.ietf.org/html/draft-ietf-rtcweb-ip-handling-01
+* Negotiation of Generic Image Attributes in the Session Description Protocol (SDP) - https://tools.ietf.org/html/rfc6236
