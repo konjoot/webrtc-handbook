@@ -38,3 +38,5 @@ The format for media transport is RTP [RFC3550].  Implementation of SRTP [RFC371
 * The Session Description Protocol (SDP) Grouping Framework - https://tools.ietf.org/html/rfc5888
 * WebRTC IP Address Handling Recommendations - https://tools.ietf.org/html/draft-ietf-rtcweb-ip-handling-01
 * Negotiation of Generic Image Attributes in the Session Description Protocol (SDP) - https://tools.ietf.org/html/rfc6236
+* Early Media and Ringing Tone Generation in the Session Initiation Protocol (SIP) - https://tools.ietf.org/html/rfc3960
+* Multiplexing RTP Data and Control Packets on a Single Port - https://tools.ietf.org/html/RFC5761
