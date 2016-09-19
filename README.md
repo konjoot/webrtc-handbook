@@ -512,8 +512,25 @@ a=imageattr:* recv [x=[16:640],y=[16:360],q=1.0]
 
 ### SessionDescriptionType.
 
-Объекты сессионных датаграмм (RTCSessionDescription) могут быть следующих типов `offer`, `pranswer`, `answer` или `rollback`. Эти типы предоставляют информацию, о том как описание должно интерпретироваться и как медиа статус должен быть изменен.
+Объекты сессионных датаграмм (RTCSessionDescription) могут быть следующих типов `offer`, `pranswer`, `answer` или `rollback`. Эти типы предоставляют информацию, о том как данное описание должно интерпретироваться и как медиа статус должен быть изменен.
 
+`offer` (запрос) означает, что описание должно быть интерпретировано как запрос; при этом описание может содержать много возможных медиа-конфигураций. Описание используемое в качестве запроса может быть применено в любое время, пока PeerConnection имеет статус `stable` или как обновление к предыдущему, но не отвеченному запросу.
+
+`pranswer` (предварительный ответ) означает, что описание должно быть интерпретировано как предварительный ответ, но не финальный ответ, поэтому не должно приводить к освобождению локальных ресурсов. Применение данного описания может привести к началу передачи медиа-данных, если ответ не описывает неактивное медиа-направление. Описание использующееся как `pranswer` может быть примененно как ответ на запрос `offer`, или как обновление к отправленному до этого предварительному ответу `pranswer`.
+
+`answer` (финальный ответ) означает, что описание должно быть интерпретировано как финальный ответ, при этом запрос\ответ обмен считается завершенным, и все аллоцированные ресурсы (декодеры, кандидаты), которые больше не нужны могут быть освобождены. Описание, используещееся как ответ `answer` может быть применено как ответ за запрос `offer`, или как обновление к предыдущему предварительному ответу `pranswer`.
+
+Единственная разница между предварительным и финальным ответом заключается в том, что финальный ответ приводит к освобождению любых неиспользуемых ресурсов, аллоцированных в процессе применения запроса. Так же приложение может предусмотрирельно принять собственное решение является ли данный ответ финальным или предварительным, поменяв его тип на тот, который нужен (answer\pranswer). Например, сценарии последовательного ветвления, приложение может получить множество финальных оветов, от каждой конечной точки. Приложение может применить первый финальный ответ как предварительный, и применить финальный ответ только тогда, когда он будет удовлетворять нужным критериям, например живой пользователь вместо голосовой почты.
+
+`rollback` это специальный тип сессионной датаграммы подразумевающий, что стейт-машина должна откатиться в предыдущее состояние, как описано в секции Rollback, ниже. Данное сообщение должно быть пустым, т.е. только тип.
+
+### Работа с предварительным ответом.
+
+Большинству web-приложений нет необходимости создавать ответы с типом `pranswer`. Хотя это хорошая практика немедленно отправлять ответ, чтобы начать транспорт медиа и минимизировать потерю медиа-данных, предпочтительным поведением для web-приложения является создать и отправить неактивный (inactive) финальный ответ сразу после получения запроса. Позже, когда вызываемый пользователь на самом деле ответит на звонок, приложение может создать новый `sendrecv` запрос, чтобы обновить предыдущую пару запрос\ответ и начать обмен медиа. Хотя это так же может быть сделано с помощью неактивного (inactive) предварительного ответа (pranswer) с последующим финальным `sendrecv` финальным ответом, предварительный ответ оставляет запрос\ответ обмен открытым, что не дает ни одной из сторон отправить обновленный запрос в течение этого времени.
+
+Как пример, представим типичное web-приложение, которое собирается установить канал для обмена данными (data channel), аудио-канал и видео-канал. Когда конечная точка получает запрос с этими каналами, она может отправить ответ, в котором обмен данными будет двусторонним, а аудио- и видео-каналы неактивными или только на получение `receive-only`. Далее она просит пользователя принять звонок, тем самым получив доступ к локальным медиа-потокам, и отправляет новый запрос вызывающей стороне меняя аудио- и видео-потоки на двунаправленные. К этому времени пользователь принял вызов и инициировал создание нового запроса, так же вероятно, что к этому времени рукопожатие ICE и DTLS для всех каналов будет завершено. 
+
+Конечно, не всем приложениям нужно реализовывать подобную двойную модель запрос\ответ обмена, в частности шлюзы для старых сигнальных протоколов. В этих случаях предварительный ответ может приводить к началу передачи медиа-данных.
 
 <- RFC
 4.  Interface
@@ -525,78 +542,7 @@ a=imageattr:* recv [x=[16:640],y=[16:360],q=1.0]
 4.1.5.  createOffer
 4.1.6.  createAnswer
 4.1.7.  SessionDescriptionType
-
-   Session description objects (RTCSessionDescription) may be of type
-   "offer", "pranswer", "answer" or "rollback".  These types provide
-   information as to how the description parameter should be parsed, and
-   how the media state should be changed.
-
-   "offer" indicates that a description should be parsed as an offer;
-   said description may include many possible media configurations.  A
-   description used as an "offer" may be applied anytime the
-   PeerConnection is in a stable state, or as an update to a previously
-   supplied but unanswered "offer".
-
-   "pranswer" indicates that a description should be parsed as an
-   answer, but not a final answer, and so should not result in the
-   freeing of allocated resources.  It may result in the start of media
-   transmission, if the answer does not specify an inactive media
-   direction.  A description used as a "pranswer" may be applied as a
-   response to an "offer", or an update to a previously sent "pranswer".
-
-   "answer" indicates that a description should be parsed as an answer,
-   the offer-answer exchange should be considered complete, and any
-   resources (decoders, candidates) that are no longer needed can be
-   released.  A description used as an "answer" may be applied as a
-   response to an "offer", or an update to a previously sent "pranswer".
-
-   The only difference between a provisional and final answer is that
-   the final answer results in the freeing of any unused resources that
-   were allocated as a result of the offer.  As such, the application
-   can use some discretion on whether an answer should be applied as
-   provisional or final, and can change the type of the session
-   description as needed.  For example, in a serial forking scenario, an
-   application may receive multiple "final" answers, one from each
-   remote endpoint.  The application could choose to accept the initial
-   answers as provisional answers, and only apply an answer as final
-   when it receives one that meets its criteria (e.g. a live user
-   instead of voicemail).
-
-   "rollback" is a special session description type implying that the
-   state machine should be rolled back to the previous state, as
-   described in Section 4.1.7.2.  The contents MUST be empty.
-
 4.1.7.1.  Use of Provisional Answers
-
-   Most web applications will not need to create answers using the
-   "pranswer" type.  While it is good practice to send an immediate
-   response to an "offer", in order to warm up the session transport and
-   prevent media clipping, the preferred handling for a web application
-   would be to create and send an "inactive" final answer immediately
-   after receiving the offer.  Later, when the called user actually
-   accepts the call, the application can create a new "sendrecv" offer
-   to update the previous offer/answer pair and start the media flow.
-   While this could also be done with an inactive "pranswer", followed
-   by a sendrecv "answer", the initial "pranswer" leaves the offer-
-   answer exchange open, which means that neither side can send an
-   updated offer during this time.
-
-   As an example, consider a typical web application that will set up a
-   data channel, an audio channel, and a video channel.  When an
-   endpoint receives an offer with these channels, it could send an
-   answer accepting the data channel for two-way data, and accepting the
-   audio and video tracks as inactive or receive-only.  It could then
-   ask the user to accept the call, acquire the local media streams, and
-   send a new offer to the remote side moving the audio and video to be
-   two-way media.  By the time the human has accepted the call and
-   triggered the new offer, it is likely that the ICE and DTLS
-   handshaking for all the channels will already have finished.
-
-   Of course, some applications may not be able to perform this double
-   offer-answer exchange, particularly ones that are attempting to
-   gateway to legacy signaling protocols.  In these cases, "pranswer"
-   can still provide the application with a mechanism to warm up the
-   transport.
 
 4.1.7.2.  Rollback
 
