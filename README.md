@@ -532,6 +532,11 @@ a=imageattr:* recv [x=[16:640],y=[16:360],q=1.0]
 
 Конечно, не всем приложениям нужно реализовывать подобную двойную модель запрос\ответ обмена, в частности шлюзы для старых сигнальных протоколов. В этих случаях предварительный ответ может приводить к началу передачи медиа-данных.
 
+### Откат(Rollback).
+
+В некоторых ситуациях может иметь смысл "откатить" изменения сделанные с помощью setLocalDescription или setRemoteDescription. Рассмотрим случай когда звонок уже идет и какая-то из сторон хочет поменять параметры сессии; эта сторона создает обновленный запрос и вызывает setLocalDescription. Однако, противоположная сторона либо до, либо после вызова setRemoteDescription, решает, что не желает принимать новые параметры, и отправляет сообщение об отказе отправителю. Теперь инициатор запроса, как возможно и адресат, должны откатиться к предыдущему стабильному состоянию, т.е. к предыдущей локальной\удаленной конфигурации(local\remote description). Чтобы это было возможно, добавлен концепт отката (rollback).
+
+
 <- RFC
 4.  Interface
 4.1.  Methods
@@ -545,17 +550,6 @@ a=imageattr:* recv [x=[16:640],y=[16:360],q=1.0]
 4.1.7.1.  Use of Provisional Answers
 
 4.1.7.2.  Rollback
-
-   In certain situations it may be desirable to "undo" a change made to
-   setLocalDescription or setRemoteDescription.  Consider a case where a
-   call is ongoing, and one side wants to change some of the session
-   parameters; that side generates an updated offer and then calls
-   setLocalDescription.  However, the remote side, either before or
-   after setRemoteDescription, decides it does not want to accept the
-   new parameters, and sends a reject message back to the offerer.  Now,
-   the offerer, and possibly the answerer as well, need to return to a
-   stable state and the previous local/remote description.  To support
-   this, we introduce the concept of "rollback".
 
    A rollback discards any proposed changes to the session, returning
    the state machine to the stable state, and setting the pending local
