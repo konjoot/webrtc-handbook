@@ -534,7 +534,13 @@ a=imageattr:* recv [x=[16:640],y=[16:360],q=1.0]
 
 ### Откат(Rollback).
 
-В некоторых ситуациях может иметь смысл "откатить" изменения сделанные с помощью setLocalDescription или setRemoteDescription. Рассмотрим случай когда звонок уже идет и какая-то из сторон хочет поменять параметры сессии; эта сторона создает обновленный запрос и вызывает setLocalDescription. Однако, противоположная сторона либо до, либо после вызова setRemoteDescription, решает, что не желает принимать новые параметры, и отправляет сообщение об отказе отправителю. Теперь инициатор запроса, как возможно и адресат, должны откатиться к предыдущему стабильному состоянию, т.е. к предыдущей локальной\удаленной конфигурации(local\remote description). Чтобы это было возможно, добавлен концепт отката (rollback).
+В некоторых ситуациях имеет смысл "откатить" изменения сделанные с помощью setLocalDescription или setRemoteDescription. Рассмотрим случай когда звонок уже идет и какая-то из сторон хочет поменять параметры сессии; эта сторона создает обновленный запрос и вызывает setLocalDescription. Однако, противоположная сторона либо до, либо после вызова setRemoteDescription, решает, что не желает принимать новые параметры, и отправляет сообщение об отказе отправителю. Теперь инициатор запроса, как возможно и адресат, должны откатиться к предыдущему стабильному состоянию, т.е. к предыдущей локальной\удаленной конфигурации(local\remote description). Чтобы это было возможно, добавлен концепт отката (rollback).
+
+Откат отменяет любые предложенные изменения сессии, возвращая стейт-машину в предыдущее стабильное состояние и устанавливая ожидающие локальные и\или удаленные описания обратно в null. Любые ресурсы или кандидаты, которые были аллоцированы отмененными описаниями, освобождаются; и медиа входящее\исходящее будет обрабатываться в соответствие со старыми описаниями удаленной и локальной сессий. Откат может быть использован только для отката предложенных изменений; не предусматривается механизма отката стабильного состояния к предыдущему стабильному состоянию. Это означает, что как только ответчик применит setLocalDescription со своим ответом - это уже нельзя будет откатить.
+
+Откат отделяет любые Rtp-трансиверы которые были ассоциированы с m= секциями приложения с откатывающейся сессией (подробности [тут](https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-16#section-5.8) и [тут](https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-16#section-5.7)). Это означает, что некоторые Rtp-трансиверы которые были ассоциированы с m= секциями, больше с ними аллоцированы не будут; в этих условиях значение mid аттрибута Rtp-трансивера должно быть установлено в null. Rtp-трансиверы, которые были созданы применением удаленного оффера, который был в последствие откачен, должны быть удалены. Однако, Rtp-трансивер не должен быть удален если соответствующий ему Rtp-отправитель(RtpSender) был активирован вызовом метода addTrack. Возможен следующий сценарий, приложение вызовет addTrack для Rtp-отправителя из нового оффера, после этого setRemoteDescription c оффером, потом откатит этот оффер, дальше вызовет createOffer и получит m= секцию для добавленного трека в новом оффере.
+
+Откат выполняется применением сессионной датаграммы типа `rollback` с пустым контентом к setLocalDescription или setRemoteDescription, в зависимости от того что последним использовалось (например, если новый оффер был применен к setLocalDescription, то откат нужно так же осуществлять вызовом setLocalDescription).
 
 
 <- RFC
@@ -548,39 +554,7 @@ a=imageattr:* recv [x=[16:640],y=[16:360],q=1.0]
 4.1.6.  createAnswer
 4.1.7.  SessionDescriptionType
 4.1.7.1.  Use of Provisional Answers
-
 4.1.7.2.  Rollback
-
-   A rollback discards any proposed changes to the session, returning
-   the state machine to the stable state, and setting the pending local
-   and/or remote description back to null.  Any resources or candidates
-   that were allocated by the abandoned local description are discarded;
-   any media that is received will be processed according to the
-   previous local and remote descriptions.  Rollback can only be used to
-   cancel proposed changes; there is no support for rolling back from a
-   stable state to a previous stable state.  Note that this implies that
-   once the answerer has performed setLocalDescription with his answer,
-   this cannot be rolled back.
-
-   A rollback will disassociate any RtpTransceivers that were associated
-   with m= sections by the application of the rolled-back session
-   description (see Section 5.8 and Section 5.7).  This means that some
-   RtpTransceivers that were previously associated will no longer be
-   associated with any m= section; in such cases, the value of the
-   RtpTransceiver's mid attribute MUST be set to null.  RtpTransceivers
-   that were created by applying a remote offer that was subsequently
-   rolled back MUST be removed.  However, a RtpTransceiver MUST NOT be
-   removed if the RtpTransceiver's RtpSender was activated by the
-   addTrack method.  This is so that an application may call addTrack,
-   then call setRemoteDescription with an offer, then roll back that
-   offer, then call createOffer and have a m= section for the added
-   track appear in the generated offer.
-
-   A rollback is performed by supplying a session description of type
-   "rollback" with empty contents to either setLocalDescription or
-   setRemoteDescription, depending on which was most recently used (i.e.
-   if the new offer was supplied to setLocalDescription, the rollback
-   should be done using setLocalDescription as well).
 
 4.1.8.  setLocalDescription
 
