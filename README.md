@@ -572,6 +572,12 @@ Null объект возвращается если ни однин запрос
 
 Null объект возвращается, если PeerConnection находится в статусе `stable` или `have-remote-offer`.
 
+### currentRemoteDescription.
+
+Метод currentRemoteDescription возвращает копию текущего согласованного удаленного описания, т.е. удаленное (remote) описание последнего успешного запрос\ответ SDP-обмена, плюс все удаленные кандидаты, предложенные через processIceMessage с момента как последнее удаленное описание было примененно.
+
+Null объект возвращается если ни один запрос\ответ обмен еще не завершен.
+
 
 <- RFC
 4.  Interface
@@ -590,16 +596,6 @@ Null объект возвращается, если PeerConnection находи
 4.1.10.  currentLocalDescription
 4.1.11.  pendingLocalDescription
 4.1.12.  currentRemoteDescription
-
-   The currentRemoteDescription method returns a copy of the current
-   negotiated remote description - i.e., the remote description from the
-   last successful offer/answer exchange - in addition to any remote
-   candidates that have been supplied via processIceMessage since the
-   remote description was set.
-
-   A null object will be returned if an offer/answer exchange has not
-   yet been completed.
-
 4.1.13.  pendingRemoteDescription
 
    The pendingRemoteDescription method returns a copy of the remote
