@@ -542,6 +542,16 @@ a=imageattr:* recv [x=[16:640],y=[16:360],q=1.0]
 
 Откат выполняется применением сессионной датаграммы типа `rollback` с пустым контентом к setLocalDescription или setRemoteDescription, в зависимости от того что последним использовалось (например, если новый оффер был применен к setLocalDescription, то откат нужно так же осуществлять вызовом setLocalDescription).
 
+### setLocalDescription.
+
+Этот метод инструктирует PeerConnection применить предложенную сессионную датаграмму в качестве локальной конфигурации. Поле `type` сессионной датаграммы говорит о том как она должна быть интерпретирована (оффер, предватирельный ответ, финальный ответ). Ответы и офферы проверяются по разному, с помощью правил, которые описаны для каждой строки SDP.
+
+Это API изменяет локальное состояние медиа-уровня; по мимо прочего оно настраивает локальные ресурсы на прием и декодирование медиа. Для успешной обработки сценариев, когда приложение хочет запросить изменение одного медиа формата на другой, несовместимый формат, PeerConnection должен одновременно поддержать как старое, так и ожидаемое описание сессии (например, использовать кодеки, присутствующие в обоих описаниях) пока финальный ответ не будет получен, после этого PeerConnection может полностью применить ожидаемое описание сессии или откатиться к текущему описанию, если удаленная сторона отказалась от изменений.
+
+Это API косвенно контролирует процесс сборки кандидатов. Когда локальное описание предложено и количество транспортов, находящихся в использовании не соответствует транспортным нуждам предложенного описания, PeerConnection начинает создавать недостающие транспорты и запускает процесс сборки кандадатов для них.
+
+Если предварительно был вызван setRemoteDescription с оффером и setLocalDescription вызывается с ответом (предварительным или финальным), при этом медиа направления совместимы и медиа готово к передаче - запускается процесс обмена медиа-данными.
+
 
 <- RFC
 4.  Interface
@@ -555,37 +565,7 @@ a=imageattr:* recv [x=[16:640],y=[16:360],q=1.0]
 4.1.7.  SessionDescriptionType
 4.1.7.1.  Use of Provisional Answers
 4.1.7.2.  Rollback
-
 4.1.8.  setLocalDescription
-
-   The setLocalDescription method instructs the PeerConnection to apply
-   the supplied session description as its local configuration.  The
-   type field indicates whether the description should be processed as
-   an offer, provisional answer, or final answer; offers and answers are
-   checked differently, using the various rules that exist for each SDP
-   line.
-
-   This API changes the local media state; among other things, it sets
-   up local resources for receiving and decoding media.  In order to
-   successfully handle scenarios where the application wants to offer to
-   change from one media format to a different, incompatible format, the
-   PeerConnection must be able to simultaneously support use of both the
-   current and pending local descriptions (e.g.  support codecs that
-   exist in both descriptions) until a final answer is received, at
-   which point the PeerConnection can fully adopt the pending local
-   description, or roll back to the current description if the remote
-   side denied the change.
-
-   This API indirectly controls the candidate gathering process.  When a
-   local description is supplied, and the number of transports currently
-   in use does not match the number of transports needed by the local
-   description, the PeerConnection will create transports as needed and
-   begin gathering candidates for them.
-
-   If setRemoteDescription was previously called with an offer, and
-   setLocalDescription is called with an answer (provisional or final),
-   and the media directions are compatible, and media are available to
-   send, this will result in the starting of media transmission.
 
 4.1.9.  setRemoteDescription
 
