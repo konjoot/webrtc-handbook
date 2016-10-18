@@ -584,7 +584,17 @@ Null объект возвращается если ни один запрос\�
 
 Null объект возвращается если PeerConnection находится в статусе `stable` или `have-local-offer`.
 
+### canTrickleIceCandidates.
 
+Свойство catTrickleIceCandidates указывает как удаленная сторона поддерживает стекающих(trickled) кандидатов. Может содержать три значения:
+
+`null`: ни одного SDP не было получено от удаленной стороны, поэтому не известно поддерживает ли удаленная сторона стекание кандидатов или нет. Это дефолтное значение до первого вызова setRemoteDescription.
+
+`true`: от удаленной стороны был получен SDP, говорящий, что она поддерживает стекание кандидатов.
+
+`false`: от удаленной стороны был получен SDP, говорящий, что она не поддерживает стекание кандидатов.
+
+Как описано [тут](https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-16#section-3.5.2) JSEP реализации всегда предоставляют кандидатов приложению в индивидуальном порядке, в соответствие с тем, что требуется для стекания кандидатов. Однако, приложение может использовать canTrickleIceCandidates для определения, возможности удаленной стороны поддержать этот механизм, т.е. может принимать кандадатов независимо от офферов и ответов, по мере их поступления. Учитывая, что `true` это единственное значение, которое однозначно говорит о том, что удаленная сторона поддерживает стекание кандидатов, приложение по-умолчанию пытается работать в полу-стекающем режиме (Half Trickle) принимая инициирующие офферы, и в полном режиме (Full Trickle) при последующих взаимодействиях с ICE-совместимым агентом. 
 
 <- RFC
 4.  Interface
@@ -605,33 +615,6 @@ Null объект возвращается если PeerConnection находи�
 4.1.12.  currentRemoteDescription
 4.1.13.  pendingRemoteDescription
 4.1.14.  canTrickleIceCandidates
-
-   The canTrickleIceCandidates property indicates whether the remote
-   side supports receiving trickled candidates.  There are three
-   potential values:
-
-   null:  No SDP has been received from the other side, so it is not
-      known if it can handle trickle.  This is the initial value before
-      setRemoteDescription() is called.
-
-   true:  SDP has been received from the other side indicating that it
-      can support trickle.
-
-   false:  SDP has been received from the other side indicating that it
-
-
-   As described in Section 3.5.2, JSEP implementations always provide
-   candidates to the application individually, consistent with what is
-   needed for Trickle ICE.  However, applications can use the
-   canTrickleIceCandidates property to determine whether their peer can
-   actually do Trickle ICE, i.e., whether it is safe to send an initial
-   offer or answer followed later by candidates as they are gathered.
-   As "true" is the only value that definitively indicates remote
-   Trickle ICE support, an application which compares
-   canTrickleIceCandidates against "true" will by default attempt Half
-   Trickle on initial offers and Full Trickle on subsequent interactions
-   with a Trickle ICE-compatible agent.
-
 4.1.15.  setConfiguration
 
    The setConfiguration method allows the global configuration of the
