@@ -578,6 +578,13 @@ Null объект возвращается, если PeerConnection находи
 
 Null объект возвращается если ни один запрос\ответ обмен еще не завершен.
 
+### pendingRemoteDescription.
+
+Метод pendingRemoteDescription возвращает копию удаленного описания, находящегося в процессе согласования, например удаленный запрос применен без соответствующего локального ответа, а так же все удаленные кандидаты, предложенные через processIceMessage с момента как последнее удаленное описание было примененно.
+
+Null объект возвращается если PeerConnection находится в статусе `stable` или `have-local-offer`.
+
+
 
 <- RFC
 4.  Interface
@@ -597,16 +604,6 @@ Null объект возвращается если ни один запрос\�
 4.1.11.  pendingLocalDescription
 4.1.12.  currentRemoteDescription
 4.1.13.  pendingRemoteDescription
-
-   The pendingRemoteDescription method returns a copy of the remote
-   description currently in negotiation - i.e., a remote offer set
-   without any corresponding local answer - in addition to any remote
-   candidates that have been supplied via processIceMessage since the
-   remote description was set.
-
-   A null object will be returned if the state of the PeerConnection is
-   "stable" or "have-local-offer".
-
 4.1.14.  canTrickleIceCandidates
 
    The canTrickleIceCandidates property indicates whether the remote
