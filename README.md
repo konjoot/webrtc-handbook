@@ -610,49 +610,19 @@ Null объект возвращается если PeerConnection находи�
 
 Вызов этого метода может привести к изменению состояния ICE агента, а так же состояния медиа-уровня.
 
-<- RFC
-4.  Interface
-4.1.  Methods
-4.1.1.  Constructor
-4.1.2.  addTrack
-4.1.3.  addTransceiver
-4.1.4.  createDataChannel
-4.1.5.  createOffer
-4.1.6.  createAnswer
-4.1.7.  SessionDescriptionType
-4.1.7.1.  Use of Provisional Answers
-4.1.7.2.  Rollback
-4.1.8.  setLocalDescription
-4.1.9.  setRemoteDescription
-4.1.10.  currentLocalDescription
-4.1.11.  pendingLocalDescription
-4.1.12.  currentRemoteDescription
-4.1.13.  pendingRemoteDescription
-4.1.14.  canTrickleIceCandidates
-4.1.15.  setConfiguration
-4.1.16.  addIceCandidate
+### addIceCandidate.
 
-   The addIceCandidate method provides a remote candidate to the ICE
-   Agent, which, if parsed successfully, will be added to the current
-   and/or pending remote description according to the rules defined for
-   Trickle ICE.  If the MID, m-line index, or candidate string provided
-   in the ICE candidate is invalid, an error is generated.  Connectivity
-   checks will be sent to the new candidate.
+Метод addIceCandidate предоставляет удаленного кандидата ICE агенту, который, если будет распаршен успешно, будет добавлен в текущее и\или в находящееся на этапе согласования описание удаленной сессии в соответствие с правилами для Trickle(стекающего) ICE. Если MID, индекс m-строки или строка кандидата указанные в ICE кандидате - невалидны, возвращается ошибка. Для каждого нового кандадата осуществляются проверки сетевой доступности.
 
-   This method can also be used to provide an end-of-candidates
-   indication (as defined in [I-D.ietf-ice-trickle]) to the ICE Agent
-   for all media descriptions in the last remote description.
+Этот мотод так же сообщает о завершении доступных кандидатов (end-of-candidates indication) (как описано [здесь](https://tools.ietf.org/html/draft-ietf-ice-trickle-04)) ICE агенту для всех медиа-описаний из последнего описания удаленной сессии.
 
-   This call will result in a change to the state of the ICE Agent, and
-   may result in a change to media state if it results in connectivity
-   being established.
+Вызов метода приводит к изменению статуса ICE агента и может привести к изменению статуса медиа-уровня, если приводит к установке соединения.
 
 ## Работа с SDP.
 
 Процедуры и требования необходимые для создания и парсинга SDP объетов подробно рассмотрены [здесь](https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-15#page-29).
 
-
-
+<- RFC
 6.  Configurable SDP Parameters
 
    It is possible to change elements in the SDP returned from
