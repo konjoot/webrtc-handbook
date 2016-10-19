@@ -40,3 +40,5 @@ The format for media transport is RTP [RFC3550].  Implementation of SRTP [RFC371
 * Negotiation of Generic Image Attributes in the Session Description Protocol (SDP) - https://tools.ietf.org/html/rfc6236
 * Early Media and Ringing Tone Generation in the Session Initiation Protocol (SIP) - https://tools.ietf.org/html/rfc3960
 * Multiplexing RTP Data and Control Packets on a Single Port - https://tools.ietf.org/html/RFC5761
+
+* Trickle ICE: Incremental Provisioning of Candidates for the Interactive Connectivity Establishment (ICE) Protocol - https://tools.ietf.org/html/draft-ietf-ice-trickle-04
