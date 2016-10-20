@@ -622,79 +622,40 @@ Null объект возвращается если PeerConnection находи�
 
 Процедуры и требования необходимые для создания и парсинга SDP объетов подробно рассмотрены [здесь](https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-15#page-29).
 
+## Настраиваемые SDP параметры.
+
+Существует возможность менять элементы SDP, возвращенного методом createOffer перед передачей его в setLocalDescription. Когда имплементация получает измененный SDP она должна сделать одно из двух:
+
+* применить изменения и отрегулировать свое поведение в соответствие с SDP.
+* отклонить изменения и вернуть ошибку через error-коллбек.
+
+Изменения не должны быть молча проигнорированы.
+
+Следующие элементы сессионной датаграммы не могут быть изменены после вызова createOffer и перед вызовом setLocalDescription (или между createAnswer и setLocalDescription), т.к. они относятся к транспортным атрибутам и находятся под контролем браузера и браузер не должен предоставлять возможности изменить их:
+
+* номер, тип и порт в m= строках.
+* сгенеренные MID атрибуты (a=mid).
+* сгенеренные ICE кандидаты (a=ice-ufrag и a=ice-pwd).
+* набор ICE кандидатов и их параметры (a=candidate).
+* DTLS отпечаток\отпечатки (a=fingerprint).
+* состав групп упаковки (bundle groups), `bundle-only` параметры или `a=rtcp-mux` параметры.
+
+Следущие модификации, будучи сделанными самим браузером в отношении описания сессии между createOffer\createAnswer и setLocalDescription, не должны быть проигнорированы им:
+
+* удаление или перемещение кодеков в m= строках.
+
+Следующие параметры могут контролироваться опциями переданными в createOffer\createAnswer. В качестве открытого вопроса, данные изменения могут так же быть выполнены посредством модификации SDP возвращенного createOffer\createAnswer, как описано выше, пока не будут превышены возможности конечной точки, например запрос более высокого разрешения чем конечная точка может отдать:
+
+* [[ОТКРЫТЫЙ ВОПРОС: это плейсхолдер для последующих модификаций, которые могут быть добавлены при появлении новых сценариев использования]]
+
+Имплементации могут либо принять, либо отвергнуть любые элементы не входящие ни в одну из двух категории выше, но должны делать это явно, как описано в начале секции. Отметьте, что будушие стандарты могут добавить новые SDP элементы в список обязательных, но в виду возможного перекоса версий, приложения имплементирующие спецификацию должны предоставлять возможность для быстрого добавления\удаления обязательных параметров сессии.
+
+Приложение может так же изменить SDP, чтобы уменьшить список своих возможностей (capabilities) в оффере, отправляемом удаленной стороне. Данный механизм безопасен, если измененные возможности (capabilities) являются подмножеством исходных возможностей, описанных в SDP полученном от createOffer. К тому же ответ не может расширить список возможностей, а должен просто отвечать на то, что указано в оффере.
+
+Как всегда, приложение полностью ответственно за то, что оно отправляет противоположной стороне и все входящие SDP будут обработаны браузером в меру его возможностей. Ошибкой будет полагать, что все SDP будут правильно сформированы; все должны понимать, что любая имплементация данной спецификации должна быть способна обрабатывать, в качестве удаленного запроса или ответа, SDP пришедший от любой другой имплементации данной спецификации.
+
+
 <- RFC
-6.  Configurable SDP Parameters
-
-   It is possible to change elements in the SDP returned from
-   createOffer before passing it to setLocalDescription.  When an
-   implementation receives modified SDP it MUST either:
-
-   o  Accept the changes and adjust its behavior to match the SDP.
-
-   o  Reject the changes and return an error via the error callback.
-
-   Changes MUST NOT be silently ignored.
-
-   The following elements of the session description MUST NOT be changed
-   between the createOffer and the setLocalDescription (or between the
-   createAnswer and the setLocalDescription), since they reflect
-   transport attributes that are solely under browser control, and the
-   browser MUST NOT honor an attempt to change them:
-
-   o  The number, type and port number of m= lines.
-
-   o  The generated MID attributes (a=mid).
-
-   o  The generated ICE credentials (a=ice-ufrag and a=ice-pwd).
-
-   o  The set of ICE candidates and their parameters (a=candidate).
-
-   o  The DTLS fingerprint(s) (a=fingerprint).
-
-   o  The contents of bundle groups, bundle-only parameters, or "a=rtcp-
-      mux" parameters.
-
-   The following modifications, if done by the browser to a description
-   between createOffer/createAnswer and the setLocalDescription, MUST be
-   honored by the browser:
-
-   o  Remove or reorder codecs (m=)
-
-   The following parameters may be controlled by options passed into
-   createOffer/createAnswer.  As an open issue, these changes may also
-   be be performed by manipulating the SDP returned from createOffer/
-   createAnswer, as indicated above, as long as the capabilities of the
-   endpoint are not exceeded (e.g. asking for a resolution greater than
-   what the endpoint can encode):
-
-   o  [[OPEN ISSUE: This is a placeholder for other modifications, which
-      we may continue adding as use cases appear.]]
-
-
-
-   Implementations MAY choose to either honor or reject any elements not
-   listed in the above two categories, but must do so explicitly as
-   described at the beginning of this section.  Note that future
-   standards may add new SDP elements to the list of elements which must
-   be accepted or rejected, but due to version skew, applications must
-   be prepared for implementations to accept changes which must be
-   rejected and vice versa.
-
-   The application can also modify the SDP to reduce the capabilities in
-   the offer it sends to the far side or the offer that it installs from
-   the far side in any way the application sees fit, as long as it is a
-   valid SDP offer and specifies a subset of what was in the original
-   offer.  This is safe because the answer is not permitted to expand
-   capabilities and therefore will just respond to what is actually in
-   the offer.
-
-   As always, the application is solely responsible for what it sends to
-   the other party, and all incoming SDP will be processed by the
-   browser to the extent of its capabilities.  It is an error to assume
-   that all SDP is well-formed; however, one should be able to assume
-   that any implementation of this specification will be able to
-   process, as a remote offer or answer, unmodified SDP coming from any
-   other implementation of this specification.
 
 7.  Examples
 
