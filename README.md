@@ -666,64 +666,65 @@ Null объект возвращается если PeerConnection находи�
 
 Итак, браузер Алисы инициирует соедиение с браузером Боба. Сообщение от js-кода Алисы передается js-коду Боба посредством какого-то сингального протокола через web-сервер. js-код на обоих сторонах ожидает всех кандидатов перед отправкой оффера или ответа, таким образом эти датаграммы содержат полную информацию о кандидатах и не отправляются пока информация о кандидатах не будет полностью заполнена. Trickle ICE не используется и Боб и Алиса используют ICE политику по-умолчанию (balanced).
 
+[UML диаграмма](http://www.plantuml.com/plantuml/svg/bLNDZjCm4BxdAUO5Uk3QmqfXuS0A2KIfE7kJIMhXs9NZDfSzy7D5ubKgVYHWsNq6vuqOssdYPWqgkTH9PhwP-V9zKrOOlcS68HUymAjLDlmkBlnXdIy1eD3eGYHsy19HNoefaVAKpAIYvm8himHxPm_z-_v3_yxUsv_sbps0lQKZ7Unj_ubUtzklzXxiR_lTVhC_x67HV_J1N-nT_pbZ9vsiyopP2YlBrveLRw7ZPWEcKs3SRRi4jYkv0YPBsFCILJ8x3FAYgb23KL2Z0ULkai4jckUgOE89jeNcMpTlg1fIej69ed0zktmADJCRr5pM0NIT3rHUhHoLpKuOlXK8IXBV1RNBIySjxb6QDk2FJzjZNn1ZT8mRg9I6asfkda8r16rme6vMEbKn59Gx8M2iUYnw8W57rOqVV94_ke5AgmQsIDtBUavI5glYo4pG5_2MwWX1MQxVn-fwAlO6hrUezwYNqF9QCX_al_9KTnB969sDfyK5uGMMpm3miLc9e-n6d2ppxpnSqByROl00cpjWpASa4cqgbOJq2XjooWCbHPFvz6W4LrD9adjho7rD44ZuNDg3hVppWMpDwmrvSBm83LXHu9OqvGXFzdNg9U6qFhWf6HuOo6NRaM7-CkTS2w5X5dAyO-QTdeZOmJhLUlJZEFzfcQYr80P7oXcUIPK-sp8fEhnbmkYJPugTrkJqEK-ZvaOLkkddCfx0KaQ8jEpRYPqnRFM7reeWe_onY_GI_eUW8xpX3oHUNMSfEkfZQ3kzKHeiEODAgAuzwcOe6PGJthV4TbXNH8fREZvcsit-iwSJVEImf_u0).
 
-
-<- RFC
-
-   The flow shows Alice's browser initiating the session to Bob's
-   browser.  The messages from Alice's JS to Bob's JS are assumed to
-   flow over some signaling protocol via a web server.  The JS on both
-   Alice's side and Bob's side waits for all candidates before sending
-   the offer or answer, so the offers and answers are complete.  Trickle
-
-
-   ICE is not used.  Both Alice and Bob are using the default policy of
-   balanced.
-
-
-//                  set up local media state
+```
+@startuml
+activate AliceJS
 AliceJS->AliceUA:   create new PeerConnection
+note left:          настройка локального медиа-уровня
+activate AliceUA
+
 AliceJS->AliceUA:   addTrack with two tracks: audio and video
 AliceJS->AliceUA:   createOffer to get offer
 AliceJS->AliceUA:   setLocalDescription with offer
+note left:          ICE gathering
 AliceUA->AliceJS:   multiple onicecandidate events with candidates
+AliceJS ->AliceJS:  wait for ICE gathering to complete
 
-//                  wait for ICE gathering to complete
 AliceUA->AliceJS:   onicecandidate event with null candidate
 AliceJS->AliceUA:   get |offer-A1| from pendingLocalDescription
 
-//                  |offer-A1| is sent over signaling protocol to Bob
+note left:          Alice is calling to Bob
 AliceJS->WebServer: signaling with |offer-A1|
+activate WebServer
 WebServer->BobJS:   signaling with |offer-A1|
+activate BobJS
+deactivate WebServer
 
-//                  |offer-A1| arrives at Bob
 BobJS->BobUA:       create a PeerConnection
+activate BobUA
 BobJS->BobUA:       setRemoteDescription with |offer-A1|
 BobUA->BobJS:       onaddstream event with remoteStream
 
-//                  Bob accepts call
+note right:         Bob accepts call
 BobJS->BobUA:       addTrack with local tracks
 BobJS->BobUA:       createAnswer
 BobJS->BobUA:       setLocalDescription with answer
+note right:         ICE gathering
 BobUA->BobJS:       multiple onicecandidate events with candidates
 
-//                  wait for ICE gathering to complete
+BobJS->BobJS:       wait for ICE gathering to complete
 BobUA->BobJS:       onicecandidate event with null candidate
 BobJS->BobUA:       get |answer-A1| from currentLocalDescription
 
-//                  |answer-A1| is sent over signaling protocol to Alice
 BobJS->WebServer:   signaling with |answer-A1|
+activate WebServer
+deactivate BobJS
 WebServer->AliceJS: signaling with |answer-A1|
+deactivate WebServer
 
-//                  |answer-A1| arrives at Alice
 AliceJS->AliceUA:   setRemoteDescription with |answer-A1|
 AliceUA->AliceJS:   onaddstream event with remoteStream
+deactivate AliceJS
 
-//                  media flows
+note left:          media flows
 BobUA->AliceUA:     media sent from Bob to Alice
 AliceUA->BobUA:     media sent from Alice to Bob
+@enduml
+```
 
-
+<- RFC
 
 
    v=0
