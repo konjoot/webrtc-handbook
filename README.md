@@ -664,7 +664,7 @@ Null объект возвращается если PeerConnection находи�
 
 В этой секции проиллюстрирован простой пример установки минимального аудио\видео звонка между браузерами, и не используется Trickle ICE. В следующей секции представлен более реалистичный пример, того как это происходит при нормальном WebRTC соединении между браузерами.
 
-Итак, браузер Алисы инициирует соедиение с браузером Боба. Сообщение от js-кода Алисы передается js-коду Боба посредством какого-то сингального протокола через web-сервер. js-код на обоих сторонах ожидает всех кандидатов перед отправкой оффера или ответа, таким образом эти датаграммы содержат полную информацию о кандидатах и не отправляются пока информация о кандидатах не будет полностью заполнена. Trickle ICE не используется и Боб и Алиса используют ICE политику по-умолчанию (balanced).
+Итак, браузер Алисы инициирует соедиение с браузером Боба. Сообщения от js-кода Алисы передаются js-коду Боба посредством какого-то сингального протокола через web-сервер. js-код на обоих сторонах ожидает всех кандидатов перед отправкой оффера или ответа, таким образом эти датаграммы содержат полную информацию о кандидатах и не отправляются пока информация о кандидатах не будет полностью заполнена. Trickle ICE не используется и Боб и Алиса используют ICE политику по-умолчанию (balanced).
 
 [UML диаграмма](http://www.plantuml.com/plantuml/svg/hLRDJjj04BxxAVO1oA5N991IwA6eKb5JrBDn5XersCW9zC8X8KXK1PNsJHn3YY5EU8NTD-etuxMz8KOO5QHWHzcTds---MPShzyvTljIDBiTJswr7FDihFFBJdDL2A67QgvkrOsAzAc-56g6hx6-K7TYMyfm8_1z2JE1x_W1B7NbNfzkcJ-SZlGG5mUuTQVkLIJK5AzuKLDzoSQkrLoeL4tW8b5HGu_uSAnc-ifn5oBSQJgL8N8yjohEGuGnVGelDy9jjp-7hlSDMGZOZ_L8fVfAS40JZY9LoQh0nH6xHoI9WA44toPgNiUR5qf0-75lJuOhGf-pux6-4Ee14KoHpRbACkJc-aoV8RH17RCzsVyGU6vtK_Qyi7D827CIfTK9q9kX4AbGXMMuJ2iBWIgESMp09NY_yKvmyZDEcakBct4MrqxJr7-hHPMqyeY02RpDaCCGzoczItgAm0T_FDTlTzf49noByPan5Z67JGMtlKMeU9BZ86o7wYzZ3p-KAZ66mbs87tICo8CUw1yCxX1KgGx-1ZR889CNJBnwEjRAE86dM5iJ_b6tcqUxq1qMEbcLJm9YGgFvvcG5H49vc9SgPeeRLXvA8ENlFwwlKravzHiTao1_j0vr4-X4JwAuOEDpV0LGGlt1Own7PPnVv6vBXiSo1CFdyFs0-XDmMQGmYJhYVu9xHAMH_aLD0gXmwfhFfcYNaIXpAXkoiEqKRutrjy7k4cbUmndRTTgoa8F2f-FmR-mwqojI7YHLJxCAWx02TQcoLHOnw-9IND2Yd-G1LAzEZxOsjsqSsPy564KDx9V92WNhzI4n1tPNHSJLa7stp8zK-fzekdlcM6gu57Rslrfwd544dONY4eiITE4oa-h0i22i2ufEYWGHNPJOEYOp8MtwlU_FAIbX2R2cw6RcDKa1E5l7oGjbzPHbXcQ9aTL7W89eOs1PwbIbh5OMknJoLvTL2uYi7PbTXQxQwab39A69MCu73C1ShICZ1pGRAfEeOkmJe-1PUQrilX8b8wykywD2NxsZC9J-qj0i1AAG31vg_oM7PGnLUcZ95ATa2wHPiA37ZnD30UggiUNUybNaLsj7UhbsMLxDTcXFxTSLBoijWzWJi_41e0sWUZIrpcb25djaFYnvckNajTPQoArrrh93MiAB0acB6Qfa6GCsdyIJSjVWhiWMNjeSQJ13YNdJmlL_).
 
@@ -855,19 +855,13 @@ SDP |offer-A1|.
    a=ssrc-group:FID 3229706345 3229706346
 ```
 
+### Нормальные примеры.
+
+В этой секции приведены типичные примеры сессий между двумя браузерами с установкой аудио- и дата-каналов. Используется Trickle ICE в полном режиме (full trickle mode) с политикой группировки max-bundle, и политикой RTCP mux при необходимости и одним TURN сервером. Позже два видео потока, один для ведущего, другой, чтобы шарить экран; будут добавлены в сессию. В этом примере показано, как браузер Алисы устанавливает сиссию с браузером Боба. Сообщения от js-кода Алисы передаются js-коду Боба посредством какого-то сингального протокола через web-сервер. 
+
 <- RFC
 
 7.2.  Normal Examples
-
-   This section shows a typical example of a session between two
-   browsers setting up an audio channel and a data channel.  Trickle ICE
-   is used in full trickle mode with a bundle policy of max-bundle, an
-   RTCP mux policy of require, and a single TURN server.  Later, two
-   video flows, one for the presenter and one for screen sharing, are
-   added to the session.  This example shows Alice's browser initiating
-   the session to Bob's browser.  The messages from Alice's JS to Bob's
-   JS are assumed to flow over some signaling protocol via a web server.
-
 
   //                  set up local media state
   AliceJS->AliceUA:   create new PeerConnection
