@@ -724,7 +724,6 @@ AliceUA->BobUA:     и наоборот
 @enduml
 ```
 
-<- RFC
 
 SDP |offer-A1|.
 
@@ -796,11 +795,11 @@ SDP |offer-A1|.
    a=candidate:3348148302 2 udp 2113937151 192.0.2.1 56503
                typ host
    a=end-of-candidates
-
+```
 
    SDP |answer-A1|:
 
-
+```
    v=0
    o=- 6729291447651054566 1 IN IP4 0.0.0.0
    s=-
@@ -854,7 +853,9 @@ SDP |offer-A1|.
    a=ssrc:3229706345 cname:Q/NWs1ao1HmN4Xa5
    a=ssrc:3229706346 cname:Q/NWs1ao1HmN4Xa5
    a=ssrc-group:FID 3229706345 3229706346
+```
 
+<- RFC
 
 7.2.  Normal Examples
 
