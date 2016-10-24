@@ -666,61 +666,61 @@ Null объект возвращается если PeerConnection находи�
 
 Итак, браузер Алисы инициирует соедиение с браузером Боба. Сообщения от js-кода Алисы передаются js-коду Боба посредством какого-то сингального протокола через web-сервер. js-код на обоих сторонах ожидает всех кандидатов перед отправкой оффера или ответа, таким образом эти датаграммы содержат полную информацию о кандидатах и не отправляются пока информация о кандидатах не будет полностью заполнена. Trickle ICE не используется и Боб и Алиса используют ICE политику по-умолчанию (balanced).
 
-[UML диаграмма](http://www.plantuml.com/plantuml/svg/hLRDJjj04BxxAVO1oA5N991IwA6eKb5JrBDn5XersCW9zC8X8KXK1PNsJHn3YY5EU8NTD-etuxMz8KOO5QHWHzcTds---MPShzyvTljIDBiTJswr7FDihFFBJdDL2A67QgvkrOsAzAc-56g6hx6-K7TYMyfm8_1z2JE1x_W1B7NbNfzkcJ-SZlGG5mUuTQVkLIJK5AzuKLDzoSQkrLoeL4tW8b5HGu_uSAnc-ifn5oBSQJgL8N8yjohEGuGnVGelDy9jjp-7hlSDMGZOZ_L8fVfAS40JZY9LoQh0nH6xHoI9WA44toPgNiUR5qf0-75lJuOhGf-pux6-4Ee14KoHpRbACkJc-aoV8RH17RCzsVyGU6vtK_Qyi7D827CIfTK9q9kX4AbGXMMuJ2iBWIgESMp09NY_yKvmyZDEcakBct4MrqxJr7-hHPMqyeY02RpDaCCGzoczItgAm0T_FDTlTzf49noByPan5Z67JGMtlKMeU9BZ86o7wYzZ3p-KAZ66mbs87tICo8CUw1yCxX1KgGx-1ZR889CNJBnwEjRAE86dM5iJ_b6tcqUxq1qMEbcLJm9YGgFvvcG5H49vc9SgPeeRLXvA8ENlFwwlKravzHiTao1_j0vr4-X4JwAuOEDpV0LGGlt1Own7PPnVv6vBXiSo1CFdyFs0-XDmMQGmYJhYVu9xHAMH_aLD0gXmwfhFfcYNaIXpAXkoiEqKRutrjy7k4cbUmndRTTgoa8F2f-FmR-mwqojI7YHLJxCAWx02TQcoLHOnw-9IND2Yd-G1LAzEZxOsjsqSsPy564KDx9V92WNhzI4n1tPNHSJLa7stp8zK-fzekdlcM6gu57Rslrfwd544dONY4eiITE4oa-h0i22i2ufEYWGHNPJOEYOp8MtwlU_FAIbX2R2cw6RcDKa1E5l7oGjbzPHbXcQ9aTL7W89eOs1PwbIbh5OMknJoLvTL2uYi7PbTXQxQwab39A69MCu73C1ShICZ1pGRAfEeOkmJe-1PUQrilX8b8wykywD2NxsZC9J-qj0i1AAG31vg_oM7PGnLUcZ95ATa2wHPiA37ZnD30UggiUNUybNaLsj7UhbsMLxDTcXFxTSLBoijWzWJi_41e0sWUZIrpcb25djaFYnvckNajTPQoArrrh93MiAB0acB6Qfa6GCsdyIJSjVWhiWMNjeSQJ13YNdJmlL_).
+[UML диаграмма](http://www.plantuml.com/plantuml/svg/hLRBJjjG4DtxA-u7D8jkaK1AeOkYIaLDKTV6kT2emKPEe1iMWI2bAaYqV-A4kfZ4INxXtZ_gcV4Zry6kS5Gak2QnpvoPENF6jjFlNDXzAPhTZYFtMrPwDdRuuh2v9OJGLsgX7jLl5QYvYbGeS2pK1ByFQY4EfFHtFTULWF9So_M0rfN7VNeo_S7zWRxIrtg0PvxKL0L2pN292pNJTmn7K2fM8S94AcZe8TyyKNDzRza5beTDgvIcckXRq0Gp1jBNk0HdORVRdtpR-Oey13wOwA6AzRrWEY5pY5Mq9K1noC718n98By9_eLhKYkNu4jNyS7miVOerGnor18yPyXa13VMZZnRwHj-e42a6jU1xil_US-pkdkmvVkUC2ivP5KFCKOVO3B9GSMbVqDWnk0ou8-zstmgknfohWCfn1IS9mSDcAedz5ZKMYOHuUigftT4fF1SAScottMcJe93iX19EG9WbjTi43z3lACjVcFY0_SFrpnNtY6U1fmVwUrv6Ocoa4AMoMADQoQkK4qebjhU5UzxjPimAir0biZE9nDsJPzsf5i6bHoffD5zVMgNDKJyn8n7omx3G_8nG49oemRM0p6dyQ0odGlt2CTR35T_FygWb_GlfGzKBD619GiCJD7W0HEVmDs80WdWYgLAt0_N0TyOOa5jX4Cm7C4Usygl6pXllA5L5KOTa5Hk5QykIWFb77Cwo-E3WYKkHro3QovtA18IdbE5LTHjp-56UmkbUCeYjlGEpbeX32kLmcKTwBaogruTvd1g3GmBrEKmh_Ohw_0Fwd_9KnQbm_Cx95yDk4pt0Tz1Baao4CNikcrhv5YoquDnaDR3BefdMmauii-dslad_bT0ZJcqC_Hd66G7_Jb0XitaYMPCVGBIrejLqq2n8xg1hjORWnYWphp9HwQ1bBKTZ_fU36WL8vf160PmsiT0ogfixA8jyRKQhPievzttfFjzlMSVNl0LhzD9cqIGMceRAROctrChyQbgVWMoO4STOlOtaiKmpJ5-WuBnhXEkPOJc1LSILsHilQbMbhMzNHlWKtrpFsFMR-PLHoxHE5RjlYU4OmEXeBure0-PlXjaov7r5oi_NVRO6p7iD738BB3v--y86vQL9o5YWsQODawgczlnll29QYa2kjLh8Vm40).
 
 ```
 @startuml
 activate AliceJS
-AliceJS->AliceUA:   создать новый PeerConnection
+AliceJS->AliceUA:   создание нового PeerConnection
 note left:          настройка локального медиа-уровня
 activate AliceUA
 
-AliceJS->AliceUA:   вызвать метод addTrack с двумя треками: аудио и видео
-AliceJS->AliceUA:   вызвать createOffer, чтобы получить оффер
-AliceJS->AliceUA:   вызвать setLocalDescription с полученным оффером
+AliceJS->AliceUA:   вызов метода addTrack с двумя треками: аудио и видео
+AliceJS->AliceUA:   вызов метода createOffer для получения оффера
+AliceJS->AliceUA:   вызов метода setLocalDescription с полученным оффером
 note left:          сборка ICE кандидатов
-AliceUA->AliceJS:   получаем несколько onicecandidate евентов с кандидатами
-AliceJS ->AliceJS:  ждем пока ICE сборка завершится
+AliceUA->AliceJS:   несколько onicecandidate евентов с кандидатами
+AliceJS ->AliceJS:  ожидание завершения ICE сборки
 
-AliceUA->AliceJS:   дождаться onicecandidate евент с кандидатом == null
-AliceJS->AliceUA:   получить |offer-A1|, вызвав метод pendingLocalDescription
+AliceUA->AliceJS:   onicecandidate евент с кандидатом == null
+AliceJS->AliceUA:   вызов метода pendingLocalDescription для получения |offer-A1|
 
 note left:          Алиса начинает звонок Бобу
-AliceJS->WebServer: отправить сессионную датаграмму |offer-A1|
+AliceJS->WebServer: отправка сессионной датаграммы |offer-A1|
 activate WebServer
-WebServer->BobJS:   получить сессионную датаграмму |offer-A1|
-activate BobJS
+WebServer->BobJS:   получение сессионной датаграммы |offer-A1|
 deactivate WebServer
+activate BobJS
 
-BobJS->BobUA:       создать новый PeerConnection
+BobJS->BobUA:       создание нового PeerConnection
 activate BobUA
-BobJS->BobUA:       вызвать метод setRemoteDescription с полученным SDP |offer-A1|
-BobUA->BobJS:       дождаться onaddstream евента с remoteStream объектом
+BobJS->BobUA:       вызов метода setRemoteDescription с полученным SDP |offer-A1|
+BobUA->BobJS:       onaddstream евент с remoteStream объектом
 
 note right:         Боб принимает звонок
-BobJS->BobUA:       вызвать addTrack с локальными треками
-BobJS->BobUA:       вызвать createAnswer, чтобы получить SDP для ответа
-BobJS->BobUA:       вызвать setLocalDescription с полученным ответом
+BobJS->BobUA:       вызов метода addTrack с локальными треками
+BobJS->BobUA:       вызов метода createAnswer, чтобы получить SDP для ответа
+BobJS->BobUA:       вызов метода setLocalDescription с полученным ответом
 note right:         сброка ICE кандидатов
-BobUA->BobJS:       получаем несколько onicecandidate евентов с кандидатами
+BobUA->BobJS:       несколько onicecandidate евентов с кандидатами
 
-BobJS->BobJS:       ждем завершения сборки кандадатов
-BobUA->BobJS:       дождаться onicecandidate евент с кандидатом == null
-BobJS->BobUA:       получить |answer-A1|, вызвав currentLocalDescription
+BobJS->BobJS:       ожидание завершения ICE сборки
+BobUA->BobJS:       onicecandidate евент с кандидатом == null
+BobJS->BobUA:       вызов метода currentLocalDescription для получения |answer-A1|
 
-BobJS->WebServer:   отправить сессионную датаграмму |answer-A1|
-activate WebServer
+BobJS->WebServer:   отпрака сессионной датаграммы |answer-A1|
 deactivate BobJS
-WebServer->AliceJS: получить сессионную датаграмму |answer-A1|
+activate WebServer
+WebServer->AliceJS: получение сессионной датаграммы |answer-A1|
 deactivate WebServer
 
-AliceJS->AliceUA:   вызвать setRemoteDescription с полученным SDP |answer-A1|
-AliceUA->AliceJS:   дождаться onaddstream евента с remoteStream объектом
+AliceJS->AliceUA:   вызов метода setRemoteDescription с полученным SDP |answer-A1|
+AliceUA->AliceJS:   onaddstream евент с remoteStream объектом
 deactivate AliceJS
 
 note left:          передача медиа начата
 BobUA->AliceUA:     медиа передается от Боба к Алисе
-AliceUA->BobUA:     и наоборот
+AliceUA->BobUA:     медиа передется от Алисы к Бобу
 @enduml
 ```
 
