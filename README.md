@@ -859,133 +859,133 @@ SDP |offer-A1|.
 
 В этой секции приведены типичные примеры сессий между двумя браузерами с установкой аудио- и дата-каналов. Используется Trickle ICE в полном режиме (full trickle mode) с политикой группировки max-bundle, и политикой RTCP mux при необходимости и одним TURN сервером. Позже два видео потока, один для ведущего, другой, чтобы шарить экран; будут добавлены в сессию. В этом примере показано, как браузер Алисы устанавливает сиссию с браузером Боба. Сообщения от js-кода Алисы передаются js-коду Боба посредством какого-то сингального протокола через web-сервер. 
 
-[UML диаграмма](http://www.plantuml.com/plantuml/svg/hLV9Rjim4BthA-ROeF6XIKuv172IIuC2BUe6FTFIs14gamR9s3daupjSH5BoU4bT7xm8VBC-lXbBPH4wNDXRI2-35bxNqAbQTB32fXLWhB1OYTgs6_e2qwwjyMbMnS_9dV_oF7L6QetkYCGj_43K3qfA99oI8_Zpb8MBflcbHVq7jgrz0I51l3Qj0kkUiO3Wxr5OyV0Yo5S7Li6IKcZe4TJXsG7azyK2TOzvL-xNvFxBEukWodnpLNb4K-jsxR8ASHQugf9CJVC1Q0qOb1RKXloQTYb5ryebhBMogbO-_7irp_v_uto6cWxV5gTzTRBHgi6TvgG7oK2LlatkoCNJpFKhHt30PWBc9de3HvCLMhSRD20ikAGyo3iFP76SYuGHU-b2828B1wL-_CGLbVjGGpoyIDZvL99uPYnHTHM9bba62wrMWU9bMRt_cAzkbo_5ZQc5R5gYcyjJO-WkaP0GeOlFqtX3GiMLfDkJC80RnuPG_FJKKH0-lIXZBtB9TwvTQiikDGQMiec4E2EoAuhCw4NtTd4IIOj8hjxBYlRfL2VniZ13jpEHExJ5luzuHHt-MkD3tnkkmXzrF8m_r_AVt9En81KZDf4n47MDQsk0jAPZcJ-KoI3LNYdPqwTf99T5G4wbsHOYAVnFhv8SPhzA5a0szVTy8CaaNIHFb3wnL7LEl3A-99eFCbCcMIZR7ycuUv5uazb6Oc9Fv_Wv68e7XAgmxv4xOf6Lgb2AOYe6lQ8SovJxODXXbAxIKAyynfNPXU1hrYy5fodMzQvYXShxzybTgXdNkHJJvFwwkDu9SqPSDrclFXZ9pK2lGZ8daMPFDdrNukU08aVbYigIgb7Ca_7yBbmFmq_WhDe-ZZ29ZxedOooPoZKBr1gbsTCgTp2kOs7cvHiPAXkZAN9pWteNnkmwP80XhOkcl1InWNu_6ubkM7DfDLjqQklMiJdQBQA4kLPRWpebLPGCmcxwsLV0htH-So0lRftq1_EKzH66--JlxXZbZpiS7IpdGkNMbV7Bg1M2RUcjewr3EmmucG2xLR1f6rIqiRlbnh1mLu1Ba8h6IrfSyCtrPedD9QLUYrU3e1OmVvLDXnNAXexJFm1oz3JRdRF5nhvejR636CPjFcx3O4rz7nhXK64uiGiy3LSEiNyqnSL_tr3kLstQVVhzFVKuEahtYvEtRBvWhmVcyYG39zrprc8sSUvOokRvQybE9QRv7q1pRVTmHxbenzNsu4v23UGm-nlVpz_K-T6_uRIJ5At_3t_T2hS58sBeHpZXUSEnZ3VAa28mBnANFlA_iHCs5QfK4N8mnQvpvuYgLx6nI9AlKwILnVhIHe7z2m00)
+[UML диаграмма](http://www.plantuml.com/plantuml/svg/jLZ1Rjj64BthAtYCWUhG9ASS0YZsfKQ01bMDdcbg7GjLo41IqnvqS2mKFJXesZ-H5QjMBLd-XUKVvSqiERkabXQfeZfOjCXzEplpviqCmsZS_n2ELT0Pz2Drt6t52VuPgBFnYq0--bxFqe_fPNgXD_fVVQTdWLxX4XTwbNx2xOt-eZU1Nkk5lj5BFMkdKtvuhk_JpwqCk_sIBquw19r-nA9RF3t3ygLU18mopv3UA3KyJE9OmRmaReK5AqywNaGzJw-0kD5pDYIzn2NWWx3N-t4OHZzZom3dcBA5cu2Fiy0PDdhT22yQAZZiA1o7X-SXJ1m4G5obdqj7mW-qFSoOjTbJS2AyDjjZh-_FpjGmtqK_mE8L_Fi7d0tNOPz9GW-qNtqxQGG-KkFNIHGEZjGe6lRVawV9HmvQoq-76xqXEk0ySoQ3NH6GTUI89GZ11yxeiKwdk4USuBYGrt66GF-DY-jqQkt-IPrsrV236hu8-5bQa-_JFNhZMjTJHLw0lVA3mBJagltoLN9wt2NobNq8-bLZ2u15Po2_SueuvinB7F5Ahm9zPm_C46oIoGTAjlro0aZ821zULKOWy3-eTqZqwiWpgECnCY-9aKgZCUZ_BW3tviI_z98eOzEgxQPLeFy2uvVWobNB2HQRcdbls7zxxaWDCgP8hInpI5HCCd5w5rXpqic4nSGsYI5aKHZt-ZtIDSVGYVnAgH8yEKz6umCRr5m1HQqay1ug5h4iYAmnZAvj6-MTOzvJc3SQdWr-EwYN6SMrhhFpKxNg9e8B1K6HZ39HQq8piEMxI1rAA4fd1BXuos6Q9pTTavvEtDC9G2F-xp0CMnZTAvEJQPUdD5MjDQHfWHH0sQ7AHNNmRfSbXN9KgABGY7LLAkr2fT8h5Q-oGfLzMrcZceJPxDQ9Hxy-NgH2VeAhL1FugYhbmFcZLPQIYLqXmgGNkME5ILmVg4gvbSTPwzBFv8IaY62unCuI41fIAjmeEXMm5aUWypGMSU8BKpeQoxnrH8LADTPv-2ihRMXm7AdFpQxNH_Z5FgiX9bGagEprl3sjblkIt3pRLdmJleoCudG_0HnnVkQeegmY7krlt7EhzutDULvGH7EcsWIiE5OUjoPqsw6gy9euoodOlgnmZ2eUJW1iLQoH1piCmnP-Uf88tAKNwHM-UKBnjlF-kAFt2ADyF91UgLnDC-CTTr2NLR7MarR-lPFtAdRw7ZSVCtRma5UkRZAyaL8jq7RJBCVr3GqSXXcw_u--eQxzcffoJ5At_DmCjvOv_vrueC-suvPUoZXKm4__HCV8-Aw6SAji4r_yn0SsgTySMvhHGYFk58yMTRdb3vho1qnRDFx22JJoql2oGADB4--S_RIcMrbtWBAZhtbamKnekeCRT0SOcUVSn2xqfasaf_K4vzqKdYMlegIdd_3WuXiCGq2b462gCcRS8pnvLymXe14QSpHFMTnr_uv5U2QznFAblcqJQg2_WD9JMF20EpJGqmot39wS_XBt1kgWfU9UGFp82wFZSWIqpenjs4DFeftn7ff6RYbjXfFyjpGFrTZDn02kf3nzTByc6vYMfkxOZNwn2NXLGvCDyPNTvrO_8mkQjpEoT5iS92vMRENA4IgYiFiQWhePBweijX7dTCQqddrdg7isCtPJKOaCbtJYaPcrWgQSwHV8bpKEcBqPsXhZAXgaHzZeWptkrZfwqmOR36heMUzheBnB54AMtmfk4TAkiEyvn1BXWM-QjYjTGcPhBN44msqbEFVyJPiVrg88rncZQHRxtw7uzpGREBN6534gDgpg_DQqK1XP_FzxuONqYmIZ2lnlHNYVVRm5-Ii0)
 
 ```
 @startuml
-note left:          set up local media state
 activate AliceJS
-AliceJS->AliceUA:   create new PeerConnection
+note left:          настройка локального медиа-уровня
+AliceJS->AliceUA:   создание нового PeerConnection
 activate AliceUA
-AliceJS->AliceUA:   addTrack with an audio track
-AliceJS->AliceUA:   createDataChannel to get data channel
-AliceJS->AliceUA:   createOffer to get |offer-B1|
-AliceJS->AliceUA:   setLocalDescription with |offer-B1|
+AliceJS->AliceUA:   вызов метода addTrack с аудио треком
+AliceJS->AliceUA:   вызов метода createDataChannel для создания дата-канала
+AliceJS->AliceUA:   вызов метода createOffer для получения |offer-B1|
+AliceJS->AliceUA:   вызов метода setLocalDescription с |offer-B1|
 
 
-note left:          |offer-B1| is sent over signaling protocol to Bob
-AliceJS->WebServer: signaling with |offer-B1|
+note left:          доставка |offer-B1| по сигнальному протоколу Бобу
+AliceJS->WebServer: отправка SDP |offer-B1|
 deactivate AliceJS
 activate WebServer
-WebServer->BobJS:   signaling with |offer-B1|
+WebServer->BobJS:   получение SDP |offer-B1|
 deactivate WebServer
 activate BobJS
 
-note left:          |offer-B1| arrives at Bob
-BobJS->BobUA:       create a PeerConnection
+note left:          SDP |offer-B1| прибыл к Бобу
+BobJS->BobUA:       создание нового PeerConnection
 activate BobUA
-BobJS->BobUA:       setRemoteDescription with |offer-B1|
-BobUA->BobJS:       onaddstream with audio track from Alice
+BobJS->BobUA:       вызов метода setRemoteDescription с |offer-B1|
+BobUA->BobJS:       onaddstream евент с аудио-треком Алисы
 deactivate BobJS
 
-note right:         candidates are sent to Bob
-AliceUA->AliceJS:   onicecandidate event with |candidate-B1| (host)
+note right:         доставка кандидатов Бобу
+AliceUA->AliceJS:   onicecandidate евент |candidate-B1| (host)
 activate AliceJS
-AliceJS->WebServer: signaling with |candidate-B1|
+AliceJS->WebServer: отправка |candidate-B1|
 activate WebServer
-AliceUA->AliceJS:   onicecandidate event with |candidate-B2| (srflx)
-AliceJS->WebServer: signaling with |candidate-B2|
+AliceUA->AliceJS:   onicecandidate евент с |candidate-B2| (srflx)
+AliceJS->WebServer: отправка |candidate-B2|
 deactivate AliceJS
 
 
-WebServer->BobJS:   signaling with |candidate-B1|
+WebServer->BobJS:   получение |candidate-B1|
 activate BobJS
-BobJS->BobUA:       addIceCandidate with |candidate-B1|
-WebServer->BobJS:   signaling with |candidate-B2|
+BobJS->BobUA:       вызов метода addIceCandidate с |candidate-B1|
+WebServer->BobJS:   получение |candidate-B2|
 deactivate WebServer
-BobJS->BobUA:       addIceCandidate with |candidate-B2|
+BobJS->BobUA:       вызов метода addIceCandidate с |candidate-B2|
 
-note right:         Bob accepts call
-BobJS->BobUA:       addTrack with local audio
-BobJS->BobUA:       createDataChannel to get data channel
-BobJS->BobUA:       createAnswer to get |answer-B1|
-BobJS->BobUA:       setLocalDescription with |answer-B1|
+note right:         Боб принимает звонок
+BobJS->BobUA:       вызов addTrack с локальным аудио-треком
+BobJS->BobUA:       вызов метода createDataChannel для получения дата-канала
+BobJS->BobUA:       вызов метода createAnswer для получения |answer-B1|
+BobJS->BobUA:       вызов метода setLocalDescription с |answer-B1|
 
-note right:         |answer-B1| is sent to Alice
-BobJS->WebServer:   signaling with |answer-B1|
+note right:         доставка |answer-B1| Алисе
+BobJS->WebServer:   отправка |answer-B1|
 deactivate BobJS
 activate WebServer
-WebServer->AliceJS: signaling with |answer-B1|
+WebServer->AliceJS: получение |answer-B1|
 deactivate WebServer
 activate AliceJS
-AliceJS->AliceUA:   setRemoteDescription with |answer-B1|
-AliceUA->AliceJS:   onaddstream event with audio track from Bob
+AliceJS->AliceUA:   вызов метода setRemoteDescription с |answer-B1|
+AliceUA->AliceJS:   onaddstream евент с аудио-треком от Боба
 deactivate AliceJS
 
-note left:          candidates are sent to Alice
-BobUA->BobJS:       onicecandidate event with |candidate-B3| (host)
+note left:          доставка кандидатов Алисе
+BobUA->BobJS:       onicecandidate евент с |candidate-B3| (host)
 activate BobJS
-BobJS->WebServer:   signaling with |candidate-B3|
+BobJS->WebServer:   отправка |candidate-B3|
 activate WebServer
-BobUA->BobJS:       onicecandidate event with |candidate-B4| (srflx)
-BobJS->WebServer:   signaling with |candidate-B4|
+BobUA->BobJS:       onicecandidate евент с |candidate-B4| (srflx)
+BobJS->WebServer:   отправка |candidate-B4|
 deactivate BobJS
 
-WebServer->AliceJS: signaling with |candidate-B3|
+WebServer->AliceJS: получение |candidate-B3|
 activate AliceJS
-AliceJS->AliceUA:   addIceCandidate with |candidate-B3|
-WebServer->AliceJS: signaling with |candidate-B4|
+AliceJS->AliceUA:   вызов метода addIceCandidate с |candidate-B3|
+WebServer->AliceJS: получение |candidate-B4|
 deactivate WebServer
-AliceJS->AliceUA:   addIceCandidate with |candidate-B4|
+AliceJS->AliceUA:   вызов метода addIceCandidate с |candidate-B4|
 
-note left:          data channel opens
-BobUA->BobJS:       ondatachannel event
+note left:          открытие дата-канала
+BobUA->BobJS:       ondatachannel евент
 activate BobJS
-AliceUA->AliceJS:   ondatachannel event
+AliceUA->AliceJS:   ondatachannel евент
 deactivate AliceJS
-BobUA->BobJS:       onopen
+BobUA->BobJS:       onopen евент
 deactivate BobJS
 
-note right:         media is flowing between browsers
-BobUA->AliceUA:     audio+data sent from Bob to Alice
-AliceUA->BobUA:     audio+data sent from Alice to Bob
+note right:         медиа передается между браузерами
+BobUA->AliceUA:     аудио и дата передаются от Боба к Алисе
+AliceUA->BobUA:     аудио и дата передаются от Алисы к Бобу
 
 note right
-                    some time later Bob adds two video streams
-                    note, no candidates exchanged, because of bundle
+                    спустя какое-то время Боб добавляет два видео-потока
+                    заметьте, обмена кандидатами не происходит, из-за группировки (bundle)
 end note
-BobJS->BobUA:       addTrack with first video stream
+BobJS->BobUA:       вызов метода addTrack с первым видео-потоком
 activate BobJS
-BobJS->BobUA:       addTrack with second video stream
-BobJS->BobUA:       createOffer to get |offer-B2|
-BobJS->BobUA:       setLocalDescription with |offer-B2|
+BobJS->BobUA:       вызов метода addTrack со вторым видео-потоком
+BobJS->BobUA:       вызов метода createOffer для получения |offer-B2|
+BobJS->BobUA:       вызов метода setLocalDescription с |offer-B2|
 
-note right:         |offer-B2| is sent to Alice
-BobJS->WebServer:   signaling with |offer-B2|
+note right:         доставка |offer-B2| Алисе
+BobJS->WebServer:   отправка |offer-B2|
 deactivate BobJS
 activate WebServer
-WebServer->AliceJS: signaling with |offer-B2|
+WebServer->AliceJS: получение |offer-B2|
 deactivate WebServer
 activate AliceJS
-AliceJS->AliceUA:   setRemoteDescription with |offer-B2|
-AliceUA->AliceJS:   onaddstream event with first video stream
-AliceUA->AliceJS:   onaddstream event with second video stream
-AliceJS->AliceUA:   createAnswer to get |answer-B2|
-AliceJS->AliceUA:   setLocalDescription with |answer-B2|
+AliceJS->AliceUA:   вызов метода setRemoteDescription с |offer-B2|
+AliceUA->AliceJS:   onaddstream евент с первым видео-стримом
+AliceUA->AliceJS:   onaddstream евент со вторым видео-стримом
+AliceJS->AliceUA:   вызов метода createAnswer для получения |answer-B2|
+AliceJS->AliceUA:   вызов метода setLocalDescription с |answer-B2|
 
-note left:          |answer-B2| is sent over signaling protocol to Bob
-AliceJS->WebServer: signaling with |answer-B2|
+note left:          доставка |answer-B2| Бобу
+AliceJS->WebServer: отправка |answer-B2|
 deactivate AliceJS
 activate WebServer
-WebServer->BobJS:   signaling with |answer-B2|
+WebServer->BobJS:   отправка |answer-B2|
 deactivate WebServer
 activate BobJS
-BobJS->BobUA:       setRemoteDescription with |answer-B2|
+BobJS->BobUA:       вызов метода setRemoteDescription с |answer-B2|
 deactivate BobJS
 
-note right:         media is flowing between browsers
-BobUA->AliceUA:     audio+video+data sent from Bob to Alice
-AliceUA->BobUA:     audio+video+data sent from Alice to Bob
+note right:         медиа передается между браузерами
+BobUA->AliceUA:     аудио, видео и дата передаются от Боба к Алисе
+AliceUA->BobUA:     аудио, видео и дата передаются от Алисы к Бобу
 @enduml
 ```
 
@@ -993,133 +993,6 @@ AliceUA->BobUA:     audio+video+data sent from Alice to Bob
 
 7.2.  Normal Examples
 
-[UML диаграмма](http://www.plantuml.com/plantuml/svg/hLV9Rjim4BthA-ROeF6XIKuv172IIuC2BUe6FTFIs14gamR9s3daupjSH5BoU4bT7xm8VBC-lXbBPH4wNDXRI2-35bxNqAbQTB32fXLWhB1OYTgs6_e2qwwjyMbMnS_9dV_oF7L6QetkYCGj_43K3qfA99oI8_Zpb8MBflcbHVq7jgrz0I51l3Qj0kkUiO3Wxr5OyV0Yo5S7Li6IKcZe4TJXsG7azyK2TOzvL-xNvFxBEukWodnpLNb4K-jsxR8ASHQugf9CJVC1Q0qOb1RKXloQTYb5ryebhBMogbO-_7irp_v_uto6cWxV5gTzTRBHgi6TvgG7oK2LlatkoCNJpFKhHt30PWBc9de3HvCLMhSRD20ikAGyo3iFP76SYuGHU-b2828B1wL-_CGLbVjGGpoyIDZvL99uPYnHTHM9bba62wrMWU9bMRt_cAzkbo_5ZQc5R5gYcyjJO-WkaP0GeOlFqtX3GiMLfDkJC80RnuPG_FJKKH0-lIXZBtB9TwvTQiikDGQMiec4E2EoAuhCw4NtTd4IIOj8hjxBYlRfL2VniZ13jpEHExJ5luzuHHt-MkD3tnkkmXzrF8m_r_AVt9En81KZDf4n47MDQsk0jAPZcJ-KoI3LNYdPqwTf99T5G4wbsHOYAVnFhv8SPhzA5a0szVTy8CaaNIHFb3wnL7LEl3A-99eFCbCcMIZR7ycuUv5uazb6Oc9Fv_Wv68e7XAgmxv4xOf6Lgb2AOYe6lQ8SovJxODXXbAxIKAyynfNPXU1hrYy5fodMzQvYXShxzybTgXdNkHJJvFwwkDu9SqPSDrclFXZ9pK2lGZ8daMPFDdrNukU08aVbYigIgb7Ca_7yBbmFmq_WhDe-ZZ29ZxedOooPoZKBr1gbsTCgTp2kOs7cvHiPAXkZAN9pWteNnkmwP80XhOkcl1InWNu_6ubkM7DfDLjqQklMiJdQBQA4kLPRWpebLPGCmcxwsLV0htH-So0lRftq1_EKzH66--JlxXZbZpiS7IpdGkNMbV7Bg1M2RUcjewr3EmmucG2xLR1f6rIqiRlbnh1mLu1Ba8h6IrfSyCtrPedD9QLUYrU3e1OmVvLDXnNAXexJFm1oz3JRdRF5nhvejR636CPjFcx3O4rz7nhXK64uiGiy3LSEiNyqnSL_tr3kLstQVVhzFVKuEahtYvEtRBvWhmVcyYG39zrprc8sSUvOokRvQybE9QRv7q1pRVTmHxbenzNsu4v23UGm-nlVpz_K-T6_uRIJ5At_3t_T2hS58sBeHpZXUSEnZ3VAa28mBnANFlA_iHCs5QfK4N8mnQvpvuYgLx6nI9AlKwILnVhIHe7z2m00)
-
-@startuml
-note left:          set up local media state
-activate AliceJS
-AliceJS->AliceUA:   create new PeerConnection
-activate AliceUA
-AliceJS->AliceUA:   addTrack with an audio track
-AliceJS->AliceUA:   createDataChannel to get data channel
-AliceJS->AliceUA:   createOffer to get |offer-B1|
-AliceJS->AliceUA:   setLocalDescription with |offer-B1|
-
-
-note left:          |offer-B1| is sent over signaling protocol to Bob
-AliceJS->WebServer: signaling with |offer-B1|
-deactivate AliceJS
-activate WebServer
-WebServer->BobJS:   signaling with |offer-B1|
-deactivate WebServer
-activate BobJS
-
-note left:          |offer-B1| arrives at Bob
-BobJS->BobUA:       create a PeerConnection
-activate BobUA
-BobJS->BobUA:       setRemoteDescription with |offer-B1|
-BobUA->BobJS:       onaddstream with audio track from Alice
-deactivate BobJS
-
-note right:         candidates are sent to Bob
-AliceUA->AliceJS:   onicecandidate event with |candidate-B1| (host)
-activate AliceJS
-AliceJS->WebServer: signaling with |candidate-B1|
-activate WebServer
-AliceUA->AliceJS:   onicecandidate event with |candidate-B2| (srflx)
-AliceJS->WebServer: signaling with |candidate-B2|
-deactivate AliceJS
-
-
-WebServer->BobJS:   signaling with |candidate-B1|
-activate BobJS
-BobJS->BobUA:       addIceCandidate with |candidate-B1|
-WebServer->BobJS:   signaling with |candidate-B2|
-deactivate WebServer
-BobJS->BobUA:       addIceCandidate with |candidate-B2|
-
-note right:         Bob accepts call
-BobJS->BobUA:       addTrack with local audio
-BobJS->BobUA:       createDataChannel to get data channel
-BobJS->BobUA:       createAnswer to get |answer-B1|
-BobJS->BobUA:       setLocalDescription with |answer-B1|
-
-note right:         |answer-B1| is sent to Alice
-BobJS->WebServer:   signaling with |answer-B1|
-deactivate BobJS
-activate WebServer
-WebServer->AliceJS: signaling with |answer-B1|
-deactivate WebServer
-activate AliceJS
-AliceJS->AliceUA:   setRemoteDescription with |answer-B1|
-AliceUA->AliceJS:   onaddstream event with audio track from Bob
-deactivate AliceJS
-
-note left:          candidates are sent to Alice
-BobUA->BobJS:       onicecandidate event with |candidate-B3| (host)
-activate BobJS
-BobJS->WebServer:   signaling with |candidate-B3|
-activate WebServer
-BobUA->BobJS:       onicecandidate event with |candidate-B4| (srflx)
-BobJS->WebServer:   signaling with |candidate-B4|
-deactivate BobJS
-
-WebServer->AliceJS: signaling with |candidate-B3|
-activate AliceJS
-AliceJS->AliceUA:   addIceCandidate with |candidate-B3|
-WebServer->AliceJS: signaling with |candidate-B4|
-deactivate WebServer
-AliceJS->AliceUA:   addIceCandidate with |candidate-B4|
-
-note left:          data channel opens
-BobUA->BobJS:       ondatachannel event
-activate BobJS
-AliceUA->AliceJS:   ondatachannel event
-deactivate AliceJS
-BobUA->BobJS:       onopen
-deactivate BobJS
-
-note right:         media is flowing between browsers
-BobUA->AliceUA:     audio+data sent from Bob to Alice
-AliceUA->BobUA:     audio+data sent from Alice to Bob
-
-note right
-                    some time later Bob adds two video streams
-                    note, no candidates exchanged, because of bundle
-end note
-BobJS->BobUA:       addTrack with first video stream
-activate BobJS
-BobJS->BobUA:       addTrack with second video stream
-BobJS->BobUA:       createOffer to get |offer-B2|
-BobJS->BobUA:       setLocalDescription with |offer-B2|
-
-note right:         |offer-B2| is sent to Alice
-BobJS->WebServer:   signaling with |offer-B2|
-deactivate BobJS
-activate WebServer
-WebServer->AliceJS: signaling with |offer-B2|
-deactivate WebServer
-activate AliceJS
-AliceJS->AliceUA:   setRemoteDescription with |offer-B2|
-AliceUA->AliceJS:   onaddstream event with first video stream
-AliceUA->AliceJS:   onaddstream event with second video stream
-AliceJS->AliceUA:   createAnswer to get |answer-B2|
-AliceJS->AliceUA:   setLocalDescription with |answer-B2|
-
-note left:          |answer-B2| is sent over signaling protocol to Bob
-AliceJS->WebServer: signaling with |answer-B2|
-deactivate AliceJS
-activate WebServer
-WebServer->BobJS:   signaling with |answer-B2|
-deactivate WebServer
-activate BobJS
-BobJS->BobUA:       setRemoteDescription with |answer-B2|
-deactivate BobJS
-
-note right:         media is flowing between browsers
-BobUA->AliceUA:     audio+video+data sent from Bob to Alice
-AliceUA->BobUA:     audio+video+data sent from Alice to Bob
-@enduml
 
 
 The SDP for |offer-B1| looks like:
