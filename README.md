@@ -1310,8 +1310,8 @@ IETF были опубликованы документы [I-D.ietf-rtcweb-secur
 
 ###todo:
 ✓ [overview](https://tools.ietf.org/html/draft-ietf-rtcweb-overview-15)
-+ [jsep](https://tools.ietf.org/html/draft-ietf-rtcweb-jsep) <- I'm here
-* актуализировать ссылки
+✓ [jsep](https://tools.ietf.org/html/draft-ietf-rtcweb-jsep)
+* актуализировать ссылки <- I'm here
 + [use cases](https://tools.ietf.org/html/rfc7478)
 - [SDP + ICE](https://tools.ietf.org/html/draft-ietf-rtcweb-sdp-02)
 - [RTP](https://tools.ietf.org/html/draft-ietf-rtcweb-rtp-usage)
