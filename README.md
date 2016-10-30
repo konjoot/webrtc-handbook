@@ -797,7 +797,7 @@ SDP |offer-A1|.
    a=end-of-candidates
 ```
 
-   SDP |answer-A1|:
+SDP |answer-A1|:
 
 ```
    v=0
@@ -989,15 +989,9 @@ AliceUA->BobUA:     аудио, видео и дата передаются от
 @enduml
 ```
 
-<- RFC
+SDP |offer-B1|:
 
-7.2.  Normal Examples
-
-
-
-The SDP for |offer-B1| looks like:
-
-
+```
    v=0
    o=- 4962303333179871723 1 IN IP4 0.0.0.0
    s=-
@@ -1038,64 +1032,24 @@ The SDP for |offer-B1| looks like:
    a=fingerprint:sha-256 19:E2:1C:3B:4B:9F:81:E6:B8:5C:F4:A5:A8:D8:73:04
                         :BB:05:2F:70:9F:04:A9:0E:05:E9:26:33:E8:70:88:A2
    a=setup:actpass
+```
 
+SDP |candidate-B1|:
 
-   The SDP for |candidate-B1| looks like:
-
-
+```
    candidate:109270923 1 udp 2122194687 192.168.1.2 51556 typ host
+```
 
 
+SDP |candidate-B2|:
 
-   The SDP for |candidate-B2| looks like:
+```
+   candidate:4036177503 1 udp 1685987071 11.22.33.44 52546 typ srflx raddr 192.168.1.2 rport 51556
+```
 
+SDP |answer-B1|:
 
-   candidate:4036177503 1 udp 1685987071 11.22.33.44 52546 typ srflx
-             raddr 192.168.1.2 rport 51556
-
-
-   The SDP for |answer-B1| looks like:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```
    v=0
    o=- 7729291447651054566 1 IN IP4 0.0.0.0
    s=-
@@ -1134,26 +1088,23 @@ The SDP for |offer-B1| looks like:
    a=fingerprint:sha-256 6B:8B:F0:65:5F:78:E2:51:3B:AC:6F:F3:3F:46:1B:35
                         :DC:B8:5F:64:1A:24:C2:43:F0:A1:58:D0:A1:2C:19:08
    a=setup:active
+```
 
+SDP |candidate-B3|:
 
-   The SDP for |candidate-B3| looks like:
-
-
+```
    candidate:109270924 1 udp 2122194687 192.168.2.3 61665 typ host
+```
 
+SDP |candidate-B4|:
 
-   The SDP for |candidate-B4| looks like:
+```
+   candidate:4036177504 1 udp 1685987071 55.66.77.88 64532 typ srflx raddr 192.168.2.3 rport 61665
+```
 
+SDP |offer-B2| (обратите внимание на инкремент номера версии в o= строке, и на строки c= и a=rtcp, в которых указаны выбранные локальные кандидаты):
 
-   candidate:4036177504 1 udp 1685987071 55.66.77.88 64532 typ srflx
-             raddr 192.168.2.3 rport 61665
-
-
-   The SDP for |offer-B2| looks like: (note the increment of the version
-   number in the o= line, and the c= and a=rtcp lines, which indicate
-   the local candidate that was selected)
-
-
+```
    v=0
    o=- 7729291447651054566 2 IN IP4 0.0.0.0
    s=-
@@ -1192,7 +1143,6 @@ The SDP for |offer-B1| looks like:
 
    m=application 64532 UDP/DTLS/SCTP webrtc-datachannel
    c=IN IP4 55.66.77.88
-
 
    a=fmtp:webrtc-datachannel max-message-size=65536
    a=sctp-port 5000
@@ -1258,13 +1208,11 @@ The SDP for |offer-B1| looks like:
    a=ssrc:2366781083 cname:Q/NWs1ao1HmN4Xa5
    a=ssrc:2366781084 cname:Q/NWs1ao1HmN4Xa5
    a=ssrc-group:FID 2366781083 2366781084
+```
 
+SDP |answer-B2| (обратите внимание на использование setup:passive для поддержки существующих DTLS ролей и на использование a=recvonly для индикации, что видео потоки - однонаправленные):
 
-   The SDP for |answer-B2| looks like: (note the use of setup:passive to
-   maintain the existing DTLS roles, and the use of a=recvonly to
-   indicate that the video streams are one-way)
-
-
+```
    v=0
    o=- 4962303333179871723 2 IN IP4 0.0.0.0
    s=-
@@ -1290,7 +1238,6 @@ The SDP for |offer-B1| looks like:
                  19:E2:1C:3B:4B:9F:81:E6:B8:5C:F4:A5:A8:D8:73:04
                 :BB:05:2F:70:9F:04:A9:0E:05:E9:26:33:E8:70:88:A2
    a=setup:passive
-
 
    a=rtcp-rsize
    a=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level
@@ -1350,7 +1297,9 @@ The SDP for |offer-B1| looks like:
    a=rtcp-fb:100 ccm fir
    a=rtcp-fb:100 nack
    a=rtcp-fb:100 nack pli
+```
 
+<- RFC
 
 8.  Security Considerations
 
