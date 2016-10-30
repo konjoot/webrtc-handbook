@@ -1299,39 +1299,13 @@ SDP |answer-B2| (обратите внимание на использовани
    a=rtcp-fb:100 nack pli
 ```
 
-<- RFC
+## Вопросы безопасности.
 
-8.  Security Considerations
+IETF были опубликованы документы [I-D.ietf-rtcweb-security-arch](https://tools.ietf.org/html/draft-ietf-rtcweb-security-arch-12) [I-D.ietf-rtcweb-security](https://tools.ietf.org/html/draft-ietf-rtcweb-security-08), описывающие архитектуру безопасности WebRTC в целом. В оставшейся части этого раздела описаны соображения по обеспечению безопасности в контексте данного документа.
 
-   The IETF has published separate documents
-   [I-D.ietf-rtcweb-security-arch] [I-D.ietf-rtcweb-security] describing
-   the security architecture for WebRTC as a whole.  The remainder of
-   this section describes security considerations for this document.
+Не смотря на то, что интерфейс JSEP представляет из себя API, лучше думать о нем, как об интернет протоколе, где браузер не доверяет Javascript коду. Таким образом применима модель уроз из [RFC3552](https://tools.ietf.org/html/rfc3552). В частности Javascript может вызывать API в любой последовательности с любыми входными данными, в том числе и с вредоносными. Это особенно актуально, когда мы рассматриваем SDP, который передается в setLocalDescription (). В то время как правильное использование API требует, чтобы приложение оперировало SDP, полученными из createOffer () или createAnswer () (возможно, соответствующим образом модифицированными, как описано в разделе 6), однако нет никакой гарантии, что приложение будет так делать. Браузер должен быть готов к тому, что Javascript может вызвать API c некорректными(фиктивными) данными.
 
-   While formally the JSEP interface is an API, it is better to think of
-   it is an Internet protocol, with the JS being untrustworthy from the
-   perspective of the browser.  Thus, the threat model of [RFC3552]
-   applies.  In particular, JS can call the API in any order and with
-   any inputs, including malicious ones.  This is particularly relevant
-   when we consider the SDP which is passed to setLocalDescription().
-   While correct API usage requires that the application pass in SDP
-   which was derived from createOffer() or createAnswer() (perhaps
-   suitably modified as described in Section 6, there is no guarantee
-   that applications do so.  The browser MUST be prepared for the JS to
-   pass in bogus data instead.
-
-   Conversely, the application programmer MUST recognize that the JS
-   does not have complete control of browser behavior.  One case that
-   bears particular mention is that editing ICE candidates out of the
-   SDP or suppressing trickled candidates does not have the expected
-   behavior: implementations will still perform checks from those
-   candidates even if they are not sent to the other side.  Thus, for
-   instance, it is not possible to prevent the remote peer from learning
-   your public IP address by removing server reflexive candidates.
-   Applications which wish to conceal their public IP address should
-   instead configure the ICE agent to use only relay candidates.
-
-<- RFC
+С другой стороны, программист должен понимать, что Javascript не имеет полного контроля над поведением браузера. Один случай, который стоит особо отметить - это редактирование ICE кандидатов из SDP или подавление просочившихся (trickled) кандидатов - не имеет ожидаемого поведения: реализации будут по-прежнему выполнять проверки от этих кандидатов, даже если они не отправляются на другую сторону. Так, например, не представляется возможным, предотвратить ситуацию, получения удаленным партнером вашего публичного IP-адреса, удалением рефлексивных серверу (server reflexive) кандидатов. Приложения, которые хотят скрыть свой внешний IP-адрес, вместо этого должны настроить ICE агента на использование только кандидатов-ретрансляторов.
 
 
 ###todo:
