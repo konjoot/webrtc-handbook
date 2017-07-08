@@ -1,4 +1,4 @@
-# WebRTC handbook.
+# WebRTC handbook
 
 ## [Введение](https://tools.ietf.org/html/draft-ietf-rtcweb-overview-15)
 
