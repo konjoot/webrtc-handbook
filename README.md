@@ -7,7 +7,7 @@ WebRTC - это набор спецификаций, описывающих тр
 Основные действующие лица:
 
 * WebRTC браузер, он же WebRTC User Agent (WebRTC UA) - это приложение, которое умеет WebRTC на уровне протокола и реализует правильное Javascript API
-* WebTRC не браузер, известный так же как WebRTC приложение (WebRTC device\WebRTC native application) - это приложение, которое умеет WebRTC на уровне протокола и не предоставляет никакого Javascript API
+* WebRTC не браузер, известный так же как WebRTC приложение (WebRTC device\WebRTC native application) - это приложение, которое умеет WebRTC на уровне протокола и не предоставляет никакого Javascript API
 * WebRTC конечная точка (WebRTC endpoint) - это приложение, которое умеет WebRTC на уровне протокола
 * WebRTC-совместимая конечная точка (WebRTC-compatible endpoint) - это приложение, которое умеет WebRTC на уровне протокола, но не полностью, т.е. реализует только часть спецификации
 * WebRTC шлюз - это приложение, которое транслирует WebRTC трафик WebRTC несовместимым клиентам
